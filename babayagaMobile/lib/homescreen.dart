@@ -16,21 +16,54 @@ class HomeScreen extends StatelessWidget {
     ),
     ),
     constraints: BoxConstraints.expand(),
+
     child: Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
       children: [
-        ElevatedButton(
-            onPressed: () {
-              print("YO");
-            },
-            child: Text("babayaga")
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.max,
+
+          children: const [
+            Spacer(),
+            Icon(Icons.account_circle_sharp,
+              color: Colors.black87,
+              size: 100,
+
+            ),
+          ],
         ),
-        ElevatedButton(
-            onPressed: () {
-              print("YOOO");
-            },
-            child: Text("YO")
-        )
+
+        const Text("Babayaga",
+        style: TextStyle(
+          fontSize: 70,
+          fontFamily: 'Osaka',
+          color: Colors.white,
+        ),
+        ),
+
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(220, 100), backgroundColor: Colors.deepOrange),
+              onPressed: () {
+                print("YO");
+              },
+              child: Text("Jouer")
+          ),
+
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(220, 100), backgroundColor: Colors.deepOrange),
+              onPressed: () {
+                print("YOOO");
+              },
+              child: Text("Stat")
+          ),
+
+
+
+
       ],
 
 
