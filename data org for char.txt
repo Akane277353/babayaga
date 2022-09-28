@@ -1,0 +1,56 @@
+{    name:,
+    description: ,
+    img:
+    attaque:
+        {
+            {
+                name:
+                damage:
+            },
+            {
+                name:
+                damage:
+            },
+            {
+                name:
+                damage:
+                
+            }
+        }
+    quest: {
+        { id : ,
+        Text :””,
+        img : “”,
+        status:,
+ 
+        choix : {
+            id:,
+            1:{
+                Text: “”,
+                Chaos : +/-,
+                Reponse : ,
+                next:,
+            },
+            2:{
+                Text: “”,
+                Chaos : +/-,
+                Reponse : ,
+                next:,
+            },
+            3:{
+                Text: “”,
+                Chaos : +/-,
+                Reponse : ,
+                next:,
+            },
+            4:{
+                Text: “”,
+                Chaos : +/-,
+                Reponse : ,
+                next:,
+            }
+        }
+    },
+}
+
+

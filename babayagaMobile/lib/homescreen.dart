@@ -32,12 +32,7 @@ class HomeScreen extends StatelessWidget {
             child: Text("YO")
         )
       ],
-
-
     ),
-
-
-
     )
     );
 

@@ -1,0 +1,20 @@
+{
+    name:
+    img:
+    attaque:
+        {
+            {
+                name:
+                damage:
+            },
+            {
+                name:
+                damage:
+            },
+            {
+                name:
+                damage:
+                
+            }
+        }
+}
