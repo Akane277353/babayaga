@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-
+import 'parameter.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,8 +34,10 @@ class HomeScreen extends StatelessWidget {
                       print("test");
                       Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (BuildContext context))
-                      )
+                          PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation){
+                            return Parameter();
+                          })
+                      );
                     },
                   ),
                 ],
