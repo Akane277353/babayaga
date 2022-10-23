@@ -6,14 +6,18 @@ class Fight extends StatefulWidget {
   final CardItem ennemy;
   final List<CardItem> team;
 
-  Fight(this.ennemy, this.team, {super.key});
+  Fight(this.ennemy,this.team, {super.key});
 
   @override
   _Fight createState() => _Fight(ennemy, team);
 }
 
 class _Fight extends State<Fight> {
-  _Fight(ennemy, team);
+  final CardItem ennemy;
+  final List<CardItem> team;
+  _Fight(this.ennemy,this.team);
+
+  late var current = team[0];
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +28,7 @@ class _Fight extends State<Fight> {
               child: Container(
                 child: GridView.count(
                     crossAxisCount: 4,
+                    physics: NeverScrollableScrollPhysics(),
                     mainAxisSpacing: 20.0,
                     crossAxisSpacing: 20.0,
                     //widget.available
@@ -37,6 +42,7 @@ class _Fight extends State<Fight> {
               child: Container(
                 child: GridView.count(
                     crossAxisCount: 4,
+                    physics: NeverScrollableScrollPhysics(),
                     mainAxisSpacing: 20.0,
                     crossAxisSpacing: 20.0,
                     //widget.available
@@ -44,6 +50,17 @@ class _Fight extends State<Fight> {
                         widget.team.length, (index) => buildCard(widget.team[index])
                     )
                 )
+              ),
+            ),
+            Flexible(
+              child: Container(
+                  child: ListView.builder(
+                      itemCount: 5,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context, int index) {
+                        return ListTile(
+                            title: Text(current.name));
+                      }),
               ),
             ),
           ],
@@ -55,7 +72,9 @@ class _Fight extends State<Fight> {
     width: 200,
     child: GestureDetector(
       onTap: () {
-
+          setState(() {
+            current = item;
+          });
       },
       child: Card(
         color: alive(item) ? Colors.black : Colors.white,
