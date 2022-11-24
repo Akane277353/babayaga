@@ -1,10 +1,10 @@
+import 'package:babayagamobile/class/PersonnageJson.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../carditem.dart';
 
 class Fight extends StatefulWidget {
-  final CardItem ennemy;
-  final List<CardItem> team;
+  final Personnage ennemy;
+  final List<Personnage> team;
 
   Fight(this.ennemy,this.team, {super.key});
 
@@ -13,8 +13,8 @@ class Fight extends StatefulWidget {
 }
 
 class _Fight extends State<Fight> {
-  final CardItem ennemy;
-  final List<CardItem> team;
+  final Personnage ennemy;
+  final List<Personnage> team;
   _Fight(this.ennemy,this.team);
 
   late var current = team[0];
@@ -59,7 +59,7 @@ class _Fight extends State<Fight> {
                       physics: NeverScrollableScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                            title: Text(current.name));
+                            title: Text(current.nom));
                       }),
               ),
             ),
@@ -68,7 +68,7 @@ class _Fight extends State<Fight> {
 
     );
   }
-  Widget buildCard(CardItem item) => Container(
+  Widget buildCard(Personnage item) => Container(
     width: 200,
     child: GestureDetector(
       onTap: () {
@@ -84,13 +84,13 @@ class _Fight extends State<Fight> {
             Expanded(
               child: Material(
                 child: Ink.image(
-                  image: AssetImage(item.image),
+                  image: AssetImage("asset/images/personnages/perso.png"),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
             const SizedBox(height: 4),
-            Text(item.name),
+            Text(item.nom),
             Text(item.pv.toString()),
           ],
         ),
@@ -98,8 +98,8 @@ class _Fight extends State<Fight> {
     ),
   );
 
-  bool alive(CardItem item) {
-    return item.pv > 0;
+  bool alive(Personnage item) {
+    return int.parse(item.pv) > 0;
   }
 
 }

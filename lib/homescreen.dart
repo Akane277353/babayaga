@@ -13,10 +13,17 @@ import 'parameter.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  HomeScreen({Key? key}) : super(key: key);
+
+  late List<Personnage> perso;
+
+  Future init() async {
+    perso = await getPersonnageList();
+  }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Scaffold(
         body: Container(
       decoration: const BoxDecoration(
@@ -60,11 +67,9 @@ class HomeScreen extends StatelessWidget {
                   fixedSize: const Size(220, 100),
                   backgroundColor: Colors.deepOrange),
               onPressed: () {
-                final List<String> team = ["test"];
-                final List<String> available = ["boup"];
                 Navigator.push(context, PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {
-                  return PrepareTeam(team, available);
+                  return PrepareTeam(perso);
                 }));
               },
               child: Text("Jouer")),
@@ -74,8 +79,6 @@ class HomeScreen extends StatelessWidget {
                   backgroundColor: Colors.deepOrange),
               onPressed: () {
                 print("YOOO");
-                print(getPersonnageList());
-                //print(getHistoireList());
               },
               child: Text("Stat")),
         ],

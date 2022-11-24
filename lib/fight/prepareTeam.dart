@@ -1,44 +1,24 @@
+import 'package:babayagamobile/class/PersonnageJson.dart';
 import 'package:babayagamobile/fight/fight.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../carditem.dart';
 
 class PrepareTeam extends StatefulWidget {
-  final List<String> team;
-  final List<String> available;
+  final List<Personnage> perso;
 
-  PrepareTeam(this.team, this.available, {super.key});
+  PrepareTeam(this.perso, {super.key});
 
   @override
-  _PrepareTeam createState() => _PrepareTeam(team, available);
+  _PrepareTeam createState() => _PrepareTeam(perso);
 }
 
 class _PrepareTeam extends State<PrepareTeam> {
+  _PrepareTeam(perso);
 
-  List<CardItem> items = [
-    const CardItem(
-      image: "asset/images/personnages/perso.png",
-      name: "pedro",
-      pv: 12,
-    ),
-    const CardItem(
-      image: "asset/images/personnages/perso.png",
-      name: "pepito",
-      pv: 176,
-    ),
-    const CardItem(
-      image: "asset/images/personnages/perso.png",
-      name: "miguel",
-      pv: -1535,
-    ),
-  ];
+  List<Personnage> liste2 = [];
+  late Personnage el = widget.perso.first;
 
-  CardItem ennemy = CardItem(image: "asset/images/personnages/perso.png", name: "bogdanof hun", pv: 1200);
 
-  List<CardItem> liste2 = [];
-  late CardItem el = items.first;
-
-  _PrepareTeam(team, available);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +27,7 @@ class _PrepareTeam extends State<PrepareTeam> {
         onPressed: () {
           Navigator.push(context, PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
-                return Fight(ennemy, liste2);
+                return Fight(el, liste2);
               }));
         },
         label: const Text('start fight'),
@@ -61,13 +41,13 @@ class _PrepareTeam extends State<PrepareTeam> {
             crossAxisSpacing: 20.0,
             //widget.available
             children: List.generate(
-                items.length, (index) => buildCard(items[index])
+                widget.perso.length, (index) => buildCard(widget.perso[index])
             )
         )
     );
   }
 
-  Widget buildCard(CardItem item) => Container(
+  Widget buildCard(Personnage item) => Container(
         width: 200,
         child: GestureDetector(
           onTap: () {
@@ -81,13 +61,13 @@ class _PrepareTeam extends State<PrepareTeam> {
                 Expanded(
                   child: Material(
                     child: Ink.image(
-                      image: AssetImage(item.image),
+                      image: AssetImage("asset/images/personnages/perso.png"),
                       fit: BoxFit.cover,
                     ),
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(item.name),
+                Text(item.nom),
                 Text(item.pv.toString()),
               ],
             ),
@@ -95,7 +75,7 @@ class _PrepareTeam extends State<PrepareTeam> {
         ),
       );
 
-  void changeTeam(CardItem el) {
+  void changeTeam(Personnage el) {
     setState(() {
       if (liste2.contains(el)) {
         liste2.remove(el);
@@ -105,7 +85,7 @@ class _PrepareTeam extends State<PrepareTeam> {
     });
   }
 
-  bool inTeam(CardItem el) {
+  bool inTeam(Personnage el) {
     return liste2.contains(el);
   }
 }
