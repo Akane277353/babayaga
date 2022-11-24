@@ -19,6 +19,8 @@ class _Fight extends State<Fight> {
 
   late var current = team[0];
 
+  late var enpv = int.parse(ennemy.pv);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,15 +56,16 @@ class _Fight extends State<Fight> {
             ),
             Flexible(
               child: Container(
-                  child: ListView.builder(
-                      itemCount: 5,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemBuilder: (BuildContext context, int index) {
-                        return ListTile(
-                            title: Text(current.nom));
-                      }),
+                  child:
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(200, 60),
+                  backgroundColor: Colors.deepOrange),
+                  onPressed: () {
+                      attack();
+                    },
+                child: Text("${current.attack.nomAttack}\n           dégats : ${current.attack.degat}\n")))
               ),
-            ),
           ],
         )
 
@@ -73,11 +76,13 @@ class _Fight extends State<Fight> {
     child: GestureDetector(
       onTap: () {
           setState(() {
-            current = item;
+            if (item != ennemy) {
+              current = item;
+            }
           });
       },
       child: Card(
-        color: alive(item) ? Colors.black : Colors.white,
+        color: alive(item) ? Colors.green : Colors.orange,
         elevation: 20,
         child: Column(
           children: [
@@ -91,7 +96,12 @@ class _Fight extends State<Fight> {
             ),
             const SizedBox(height: 4),
             Text(item.nom),
-            Text(item.pv.toString()),
+            if (item == ennemy) ... [
+              Text(enpv.toString()),
+            ]
+            else ... [
+              Text(item.pv.toString()),
+            ]
           ],
         ),
       ),
@@ -99,7 +109,18 @@ class _Fight extends State<Fight> {
   );
 
   bool alive(Personnage item) {
-    return int.parse(item.pv) > 0;
+    if (item != ennemy) {
+      return int.parse(item.pv) > 0;
+    }
+    else {
+      return enpv > 0;
+    }
+
   }
 
+  void attack() {
+    setState(() {
+      enpv -= current.attack.degat;
+    });
+  }
 }
