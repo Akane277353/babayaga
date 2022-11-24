@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'carditem.dart';
+import '../carditem.dart';
 
 class Fight extends StatefulWidget {
   final CardItem ennemy;

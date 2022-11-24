@@ -1,7 +1,7 @@
-import 'package:babayagamobile/fight.dart';
+import 'package:babayagamobile/fight/fight.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'carditem.dart';
+import '../carditem.dart';
 
 class PrepareTeam extends StatefulWidget {
   final List<String> team;
