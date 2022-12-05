@@ -15,9 +15,11 @@ class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   late List<Personnage> perso;
+  late List<Histoire> histoire;
 
   Future init() async {
     perso = await getPersonnageList();
+    histoire = await getHistoireList();
   }
 
   @override
@@ -33,7 +35,7 @@ class HomeScreen extends StatelessWidget {
       ),
       constraints: BoxConstraints.expand(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,25 +63,27 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+          SizedBox(height: 300),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(220, 100),
-                  backgroundColor: Colors.deepOrange),
+                  fixedSize: const Size(140, 60),
+                  backgroundColor: Colors.purple),
               onPressed: () {
                 Navigator.push(context, PageRouteBuilder(
                     pageBuilder: (context, animation, secondaryAnimation) {
-                  return PrepareTeam(perso);
+                  return ChoiceScreen(perso, histoire, 1); //PrepareTeam(perso);
                 }));
               },
-              child: Text("Jouer")),
+              child: Text("Jouer",  style: TextStyle(fontSize: 25),)),
+          SizedBox(height: 200),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(220, 100),
-                  backgroundColor: Colors.deepOrange),
+                  fixedSize: const Size(140, 60),
+                  backgroundColor: Colors.purple),
               onPressed: () {
                 print("YOOO");
               },
-              child: Text("Stat")),
+              child: Text("Stat",  style: TextStyle(fontSize: 25),)),
         ],
       ),
     ));
@@ -104,5 +108,6 @@ Future<List<Histoire>> getHistoireList() async {
   final response = await http.get(Uri.parse(productURl));
   List jsonResponse = json.decode(response.body);
   var list = jsonResponse.map((job) => new Histoire.fromJson(job)).toList();
+  print(list[0].choix1.txt);
   return list;
 }

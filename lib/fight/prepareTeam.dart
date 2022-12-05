@@ -3,17 +3,21 @@ import 'package:babayagamobile/fight/fight.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../class/HistoireJson.dart';
+
 class PrepareTeam extends StatefulWidget {
   final List<Personnage> perso;
+  final List<Histoire> histoire;
+  final int next;
 
-  PrepareTeam(this.perso, {super.key});
+  PrepareTeam(this.perso, this.histoire, this.next, {super.key});
 
   @override
-  _PrepareTeam createState() => _PrepareTeam(perso);
+  _PrepareTeam createState() => _PrepareTeam(perso, histoire, next);
 }
 
 class _PrepareTeam extends State<PrepareTeam> {
-  _PrepareTeam(perso);
+  _PrepareTeam(perso,histoire, next);
 
   List<Personnage> liste2 = [];
   late Personnage el = widget.perso.first;
@@ -27,7 +31,7 @@ class _PrepareTeam extends State<PrepareTeam> {
         onPressed: () {
           Navigator.push(context, PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
-                return Fight(el, liste2);
+                return Fight(el, liste2, widget.perso, widget.histoire, widget.next);
               }));
         },
         label: const Text('start fight'),
@@ -54,7 +58,7 @@ class _PrepareTeam extends State<PrepareTeam> {
             changeTeam(item);
           },
           child: Card(
-            color: inTeam(item) ? Colors.black : Colors.white,
+            color: inTeam(item) ? Colors.green : Colors.white,
             elevation: 20,
             child: Column(
               children: [

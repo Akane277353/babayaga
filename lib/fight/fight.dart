@@ -2,20 +2,29 @@ import 'package:babayagamobile/class/PersonnageJson.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../baseGame/choicescreen.dart';
+import '../class/HistoireJson.dart';
+
 class Fight extends StatefulWidget {
   final Personnage ennemy;
   final List<Personnage> team;
+  final List<Personnage> perso;
+  final List<Histoire> histoire;
+  final int next;
 
-  Fight(this.ennemy,this.team, {super.key});
+  Fight(this.ennemy,this.team,this.perso, this.histoire, this.next, {super.key});
 
   @override
-  _Fight createState() => _Fight(ennemy, team);
+  _Fight createState() => _Fight(ennemy, team, perso, histoire, next);
 }
 
 class _Fight extends State<Fight> {
   final Personnage ennemy;
   final List<Personnage> team;
-  _Fight(this.ennemy,this.team);
+  final List<Personnage> perso;
+  final List<Histoire> histoire;
+  final int next;
+  _Fight(this.ennemy,this.team, this.perso, this.histoire, this.next);
 
   late var current = team[0];
 
@@ -122,5 +131,15 @@ class _Fight extends State<Fight> {
     setState(() {
       enpv -= current.attack.degat;
     });
+    if (enpv <= 0) {
+      end();
+    }
+  }
+
+  void end() {
+    Navigator.push(context, PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return ChoiceScreen(perso, histoire, next); //PrepareTeam(perso);
+        }));
   }
 }
