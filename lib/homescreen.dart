@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:babayagamobile/CreateStory.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
 import 'package:babayagamobile/baseGame/choicescreen.dart';
 
@@ -16,6 +17,8 @@ class HomeScreen extends StatelessWidget {
 
   late List<Personnage> perso;
   late List<Histoire> histoire;
+  bool bperso = false;
+  bool bhistoire = false;
 
   Future init() async {
     perso = await getPersonnageList();
@@ -63,19 +66,21 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 300),
+          SizedBox(height: 200),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 60),
                   backgroundColor: Colors.purple),
               onPressed: () {
-                Navigator.push(context, PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                  return ChoiceScreen(perso, histoire, 1); //PrepareTeam(perso);
-                }));
+                if (bperso && bhistoire) {
+                  Navigator.push(context, PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return ChoiceScreen(perso, histoire, 1, 0); //PrepareTeam(perso);
+                      }));
+                }
               },
               child: Text("Jouer",  style: TextStyle(fontSize: 25),)),
-          SizedBox(height: 200),
+          SizedBox(height: 100),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 60),
@@ -84,30 +89,47 @@ class HomeScreen extends StatelessWidget {
                 print("YOOO");
               },
               child: Text("Stat",  style: TextStyle(fontSize: 25),)),
+          SizedBox(height: 100),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(140, 60),
+                  backgroundColor: Colors.purple),
+              onPressed: () {
+                print("YOOO");
+              },
+              child: Text("random",  style: TextStyle(fontSize: 25),)),
+          SizedBox(height: 100),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  fixedSize: const Size(140, 60),
+                  backgroundColor: Colors.purple),
+              onPressed: () {
+                Navigator.push(context, PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) {
+                      return CreateStory(); //PrepareTeam(perso);
+                    }));
+              },
+              child: Text("créer random",  style: TextStyle(fontSize: 25),)),
         ],
       ),
     ));
   }
-}
 
-Future<List<Personnage>> getPersonnageList() async {
-  print("comes");
-  String productURl= "http://141.145.200.31:4081/personage";
+  Future<List<Personnage>> getPersonnageList() async {
+    String productURl= "http://141.145.200.31:4081/personage";
+    final response = await http.get(Uri.parse(productURl));
+    List jsonResponse = json.decode(response.body);
+    var list = jsonResponse.map((job) => new Personnage.fromJson(job)).toList();
+    bperso = true;
+    return list;
+  }
 
-  final response = await http.get(Uri.parse(productURl));
-  List jsonResponse = json.decode(response.body);
-  var list = jsonResponse.map((job) => new Personnage.fromJson(job)).toList();
-  print(list[0].attack.nomAttack);
-  return list;
-}
-
-Future<List<Histoire>> getHistoireList() async {
-  print("comes");
-  String productURl= "http://141.145.200.31:4081/histoire";
-
-  final response = await http.get(Uri.parse(productURl));
-  List jsonResponse = json.decode(response.body);
-  var list = jsonResponse.map((job) => new Histoire.fromJson(job)).toList();
-  print(list[0].choix1.txt);
-  return list;
+  Future<List<Histoire>> getHistoireList() async {
+    String productURl= "http://141.145.200.31:4081/histoire";
+    final response = await http.get(Uri.parse(productURl));
+    List jsonResponse = json.decode(response.body);
+    var list = jsonResponse.map((job) => new Histoire.fromJson(job)).toList();
+    bhistoire = true;
+    return list;
+  }
 }

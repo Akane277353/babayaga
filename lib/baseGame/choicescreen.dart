@@ -15,19 +15,21 @@ class ChoiceScreen extends StatefulWidget {
   final List<Personnage> perso;
   final List<Histoire> histoire;
   final int startat;
+  final int chaos;
 
-  ChoiceScreen(this.perso,this.histoire, this.startat, {super.key});
+  ChoiceScreen(this.perso,this.histoire, this.startat, this.chaos, {super.key});
 
   @override
-  _ChoiceScreen createState() => _ChoiceScreen(perso, histoire, startat);
+  _ChoiceScreen createState() => _ChoiceScreen(perso, histoire, startat, chaos);
 }
 
 class _ChoiceScreen extends State<ChoiceScreen> {
-  _ChoiceScreen(perso, histoire, startat);
+  _ChoiceScreen(perso, histoire, startat, chaos);
 
   late Personnage el = widget.perso.first;
   late Histoire hist = getChoix(widget.startat);
   late List<Histoire> lhist = widget.histoire;
+  late int chaos = widget.chaos;
 
   late Text c1 = Text(hist.choix1.txt);
   late Text c2 = Text(hist.choix2.txt);
@@ -89,14 +91,16 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blue),
                   onPressed: () {
-                    if (hist.combat == 2) {
+                    if (hist.combat > 0) {
                       Navigator.push(context, PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) {
-                            return PrepareTeam(widget.perso, lhist, hist.id); //PrepareTeam(perso);
+                            return PrepareTeam(widget.perso, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos); //PrepareTeam(perso);
                           }));
                     }
                     else {
                       hist = getChoix(hist.choix1.numerochoix)!;
+                       chaos += hist.chaos;
+                       print(chaos);
                     }
                   },
                   child: c1)),
@@ -113,6 +117,8 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                           backgroundColor: Colors.blue),
                       onPressed: () {
                         hist = getChoix(hist.choix2.numerochoix)!;
+                        chaos += hist.chaos;
+                        print(chaos);
                       },
                       child: c2))),
                   Visibility(
@@ -123,6 +129,8 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                           backgroundColor: Colors.blue),
                       onPressed: () {
                         hist = getChoix(hist.choix3.numerochoix)!;
+                        chaos += hist.chaos;
+                        print(chaos);
                       },
                       child: c3))),
                 ],
@@ -136,13 +144,13 @@ class _ChoiceScreen extends State<ChoiceScreen> {
 
   Histoire getChoix(int numerochoix) {
     for (var el in lhist) {
-      if (el.combat == 2) {
+      if (el.combat > 0) {
         /**/
       }
       if (el.id == numerochoix) {
         setState(() {
           c1 = Text(el.choix1.txt);
-          if (el.combat == 2) {
+          if (el.combat > 0) {
             c1 = Text("commencer le combat");
           }
           c2 = Text(el.choix2.txt);
@@ -151,13 +159,13 @@ class _ChoiceScreen extends State<ChoiceScreen> {
           visi1 = true;
           visi2 = true;
           visi3 = true;
-          if (c1.data == "" && el.combat != 2) {
+          if ((c1.data == "" && el.combat != 2) || el.choix1.chaosrequis > chaos) {
             visi1 = false;
           }
-          if (c2.data == "" || el.combat == 2) {
+          if (c2.data == "" || el.combat == 2 || el.choix2.chaosrequis > chaos) {
             visi2 = false;
           }
-          if (c3.data == "" || el.combat == 2) {
+          if (c3.data == "" || el.combat == 2 || el.choix3.chaosrequis > chaos) {
             visi3 = false;
           }
         });

@@ -11,11 +11,13 @@ class Fight extends StatefulWidget {
   final List<Personnage> perso;
   final List<Histoire> histoire;
   final int next;
+  final int lose;
+  final int chaos;
 
-  Fight(this.ennemy,this.team,this.perso, this.histoire, this.next, {super.key});
+  Fight(this.ennemy,this.team,this.perso, this.histoire, this.next, this.lose, this.chaos, {super.key});
 
   @override
-  _Fight createState() => _Fight(ennemy, team, perso, histoire, next);
+  _Fight createState() => _Fight(ennemy, team, perso, histoire, next, lose, chaos);
 }
 
 class _Fight extends State<Fight> {
@@ -24,7 +26,10 @@ class _Fight extends State<Fight> {
   final List<Personnage> perso;
   final List<Histoire> histoire;
   final int next;
-  _Fight(this.ennemy,this.team, this.perso, this.histoire, this.next);
+  final int chaos;
+  final int lose;
+
+  _Fight(this.ennemy,this.team, this.perso, this.histoire, this.next, this.lose, this.chaos);
 
   late var current = team[0];
 
@@ -77,7 +82,6 @@ class _Fight extends State<Fight> {
               ),
           ],
         )
-
     );
   }
   Widget buildCard(Personnage item) => Container(
@@ -121,10 +125,7 @@ class _Fight extends State<Fight> {
     if (item != ennemy) {
       return int.parse(item.pv) > 0;
     }
-    else {
-      return enpv > 0;
-    }
-
+    return enpv > 0;
   }
 
   void attack() {
@@ -139,7 +140,7 @@ class _Fight extends State<Fight> {
   void end() {
     Navigator.push(context, PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
-          return ChoiceScreen(perso, histoire, next); //PrepareTeam(perso);
+          return ChoiceScreen(perso, histoire, next, chaos); //PrepareTeam(perso);
         }));
   }
 }

@@ -9,15 +9,17 @@ class PrepareTeam extends StatefulWidget {
   final List<Personnage> perso;
   final List<Histoire> histoire;
   final int next;
+  final int lose;
+  final int chaos;
 
-  PrepareTeam(this.perso, this.histoire, this.next, {super.key});
+  PrepareTeam(this.perso, this.histoire, this.next, this.lose, this.chaos, {super.key});
 
   @override
-  _PrepareTeam createState() => _PrepareTeam(perso, histoire, next);
+  _PrepareTeam createState() => _PrepareTeam(perso, histoire, next, lose, chaos);
 }
 
 class _PrepareTeam extends State<PrepareTeam> {
-  _PrepareTeam(perso,histoire, next);
+  _PrepareTeam(perso,histoire, next, lose, chaos);
 
   List<Personnage> liste2 = [];
   late Personnage el = widget.perso.first;
@@ -31,7 +33,7 @@ class _PrepareTeam extends State<PrepareTeam> {
         onPressed: () {
           Navigator.push(context, PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
-                return Fight(el, liste2, widget.perso, widget.histoire, widget.next);
+                return Fight(el, liste2, widget.perso, widget.histoire, widget.next, widget.lose, widget.chaos);
               }));
         },
         label: const Text('start fight'),
