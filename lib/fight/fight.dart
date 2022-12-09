@@ -33,7 +33,8 @@ class _Fight extends State<Fight> {
 
   late var current = team[0];
 
-  late var enpv = int.parse(ennemy.pv);
+  //late var enpv = int.parse(ennemy.pv);
+  late var enpv = ennemy.pv;
 
   @override
   Widget build(BuildContext context) {
@@ -123,7 +124,7 @@ class _Fight extends State<Fight> {
 
   bool alive(Personnage item) {
     if (item != ennemy) {
-      return int.parse(item.pv) > 0;
+      return item.pv > 0;
     }
     return enpv > 0;
   }

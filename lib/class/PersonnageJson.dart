@@ -3,7 +3,7 @@ import 'AttackJson.dart';
 class Personnage {
   final String nom;
   final int id;
-  final String pv;
+  final int pv;
   final Attack attack;
   final String img;
   final int playable;

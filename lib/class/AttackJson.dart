@@ -7,10 +7,10 @@ class Attack {
     required this.degat,
   });
 
-  factory Attack.fromJson(Map<String, dynamic> json) {
+  factory Attack.fromJson(List<dynamic> json) {
     return Attack(
-      degat: json['degat'],
-      nomAttack: json['nomAttack'],
+      degat: json[0]['degat'],
+      nomAttack: json[0]['nom'],
     );
   }
 }

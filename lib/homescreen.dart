@@ -66,12 +66,13 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          SizedBox(height: 200),
+          //SizedBox(height: 200),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 60),
                   backgroundColor: Colors.purple),
               onPressed: () {
+                init();
                 if (bperso && bhistoire) {
                   Navigator.push(context, PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
@@ -116,7 +117,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Future<List<Personnage>> getPersonnageList() async {
-    String productURl= "http://141.145.200.31:4081/personage";
+    String productURl= "http://141.145.200.31:4081/perso/ls";
     final response = await http.get(Uri.parse(productURl));
     List jsonResponse = json.decode(response.body);
     var list = jsonResponse.map((job) => new Personnage.fromJson(job)).toList();
@@ -125,7 +126,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Future<List<Histoire>> getHistoireList() async {
-    String productURl= "http://141.145.200.31:4081/histoire";
+    String productURl= "http://141.145.200.31:4081/histoire/ls";
     final response = await http.get(Uri.parse(productURl));
     List jsonResponse = json.decode(response.body);
     var list = jsonResponse.map((job) => new Histoire.fromJson(job)).toList();
