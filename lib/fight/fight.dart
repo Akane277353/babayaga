@@ -15,14 +15,15 @@ class Fight extends StatefulWidget {
   final int next;
   final int lose;
   final int chaos;
+  List<int> choix = [];
 
   Fight(this.ennemy, this.team, this.perso, this.histoire, this.next, this.lose,
-      this.chaos,
+      this.chaos, this.choix,
       {super.key});
 
   @override
   _Fight createState() =>
-      _Fight(ennemy, team, perso, histoire, next, lose, chaos);
+      _Fight(ennemy, team, perso, histoire, next, lose, chaos, choix);
 }
 
 class _Fight extends State<Fight> {
@@ -33,9 +34,10 @@ class _Fight extends State<Fight> {
   final int next;
   final int chaos;
   final int lose;
+  List<int> choix = [];
 
   _Fight(this.ennemy, this.team, this.perso, this.histoire, this.next,
-      this.lose, this.chaos);
+      this.lose, this.chaos, this.choix);
 
   late var current = team[0];
 
@@ -166,7 +168,7 @@ class _Fight extends State<Fight> {
     if (loose) {
       Navigator.push(context,
           PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-            return ChoiceScreen(perso, histoire, lose, chaos); //PrepareTeam(perso);
+            return ChoiceScreen(perso, histoire, lose, chaos, widget.choix); //PrepareTeam(perso);
           }));
     }
   }
@@ -188,7 +190,7 @@ class _Fight extends State<Fight> {
   void end() {
     Navigator.push(context,
         PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-      return ChoiceScreen(perso, histoire, next, chaos); //PrepareTeam(perso);
+      return ChoiceScreen(perso, histoire, next, chaos, choix); //PrepareTeam(perso);
     }));
   }
 }

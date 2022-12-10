@@ -17,15 +17,16 @@ class ChoiceScreen extends StatefulWidget {
   final List<Histoire> histoire;
   final int startat;
   final int chaos;
+  List<int> choix = [];
 
-  ChoiceScreen(this.perso,this.histoire, this.startat, this.chaos, {super.key});
+  ChoiceScreen(this.perso,this.histoire, this.startat, this.chaos, this.choix, {super.key});
 
   @override
-  _ChoiceScreen createState() => _ChoiceScreen(perso, histoire, startat, chaos);
+  _ChoiceScreen createState() => _ChoiceScreen(perso, histoire, startat, chaos, choix);
 }
 
 class _ChoiceScreen extends State<ChoiceScreen> {
-  _ChoiceScreen(perso, histoire, startat, chaos);
+  _ChoiceScreen(perso, histoire, startat, chaos, choix);
 
   late Personnage el = widget.perso.first;
   late Histoire hist = getChoix(widget.startat);
@@ -39,6 +40,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
   late bool visi1 = true;
   late bool visi2 = true;
   late bool visi3 = true;
+  late List<int> lchoix = widget.choix;
+
+  get http => null;
 
   @override
   Widget build(BuildContext context) {
@@ -46,9 +50,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
 
     return Scaffold(
         body: Container(
-          decoration: const BoxDecoration(
+          decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("asset/images/fond/landscape.png"),//hist.fond
+              image: AssetImage(hist.fond),
               fit: BoxFit.cover,
             ),
           ),
@@ -62,8 +66,8 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                 mainAxisSize: MainAxisSize.max,
               ),
 
-              const Image(
-                image: AssetImage('asset/images/personnages/poulpours.png'),//hist.img
+              Image(
+                image: AssetImage(hist.img),
                 width: 300,
                 height: 400,
               ),
@@ -95,7 +99,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     if (hist.combat > 0) {
                       Navigator.push(context, PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) {
-                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos); //PrepareTeam(perso);
+                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos, lchoix); //PrepareTeam(perso);
                           }));
                     }
                     else {
@@ -151,6 +155,8 @@ class _ChoiceScreen extends State<ChoiceScreen> {
 
   Histoire getChoix(int numerochoix) {
     Histoire res = lhist.first;
+
+    print(lchoix);
     for (var el in lhist) {
       if (el.id == numerochoix) {
         setState(() {
@@ -180,6 +186,12 @@ class _ChoiceScreen extends State<ChoiceScreen> {
         res = el;
       }
     }
+    lchoix.add(res.id);
     return res;
+  }
+
+  Future<void> getPersonnageList() async {
+    String productURl= "http://141.145.200.31:4081/perso/ls";
+    final response = await http.get(Uri.parse(productURl));
   }
 }

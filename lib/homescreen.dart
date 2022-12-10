@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                 if (bperso && bhistoire) {
                   Navigator.push(context, PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
-                        return ChoiceScreen(perso, histoire, 1, 0); //1
+                        return ChoiceScreen(perso, histoire, 1, 0, []); //1
                       }));
                 }
               },
