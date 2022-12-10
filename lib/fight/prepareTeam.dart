@@ -7,24 +7,25 @@ import '../class/HistoireJson.dart';
 
 class PrepareTeam extends StatefulWidget {
   final List<Personnage> perso;
+  final int id;
   final List<Histoire> histoire;
   final int next;
   final int lose;
   final int chaos;
 
-  PrepareTeam(this.perso, this.histoire, this.next, this.lose, this.chaos, {super.key});
+  PrepareTeam(this.perso, this.id, this.histoire, this.next, this.lose, this.chaos, {super.key});
 
   @override
-  _PrepareTeam createState() => _PrepareTeam(perso, histoire, next, lose, chaos);
+  _PrepareTeam createState() => _PrepareTeam(perso, id, histoire, next, lose, chaos);
 }
 
 class _PrepareTeam extends State<PrepareTeam> {
-  _PrepareTeam(perso,histoire, next, lose, chaos);
+  _PrepareTeam(perso, id, histoire, next, lose, chaos);
 
   List<Personnage> liste2 = [];
   late Personnage el = widget.perso.first;
 
-
+  late List<Personnage> playable = canplay(widget.perso);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _PrepareTeam extends State<PrepareTeam> {
         onPressed: () {
           Navigator.push(context, PageRouteBuilder(
               pageBuilder: (context, animation, secondaryAnimation) {
-                return Fight(el, liste2, widget.perso, widget.histoire, widget.next, widget.lose, widget.chaos);
+                return Fight(findEnnemy(), liste2, widget.perso, widget.histoire, widget.next, widget.lose, widget.chaos);
               }));
         },
         label: const Text('start fight'),
@@ -47,7 +48,7 @@ class _PrepareTeam extends State<PrepareTeam> {
             crossAxisSpacing: 20.0,
             //widget.available
             children: List.generate(
-                widget.perso.length, (index) => buildCard(widget.perso[index])
+                widget.perso.length, (index) => buildCard(playable[index])
             )
         )
     );
@@ -67,7 +68,7 @@ class _PrepareTeam extends State<PrepareTeam> {
                 Expanded(
                   child: Material(
                     child: Ink.image(
-                      image: AssetImage("asset/images/personnages/perso.png"),
+                      image: AssetImage(item.img),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -93,5 +94,26 @@ class _PrepareTeam extends State<PrepareTeam> {
 
   bool inTeam(Personnage el) {
     return liste2.contains(el);
+  }
+
+  List<Personnage> canplay(List<Personnage> perso) {
+    List<Personnage> l = [];
+    for (int i = 0; i < perso.length; i++) {
+      if (perso[i].playable == 1) {
+        l.add(perso[i]);
+      }
+    }
+    return l;
+  }
+
+  Personnage findEnnemy() {
+    Personnage el = widget.perso.first;
+    for (int i = 0; i < widget.perso.length; i++) {
+      if (widget.perso[i].id == widget.id) {
+        el = widget.perso[i];
+
+      }
+    }
+    return el;
   }
 }

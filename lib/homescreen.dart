@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
               color: Colors.white,
             ),
           ),
-          //SizedBox(height: 200),
+          SizedBox(height: 200),
           ElevatedButton(
               style: ElevatedButton.styleFrom(
                   fixedSize: const Size(140, 60),
@@ -76,7 +76,7 @@ class HomeScreen extends StatelessWidget {
                 if (bperso && bhistoire) {
                   Navigator.push(context, PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
-                        return ChoiceScreen(perso, histoire, 1, 0); //PrepareTeam(perso);
+                        return ChoiceScreen(perso, histoire, 1, 0); //1
                       }));
                 }
               },
@@ -89,28 +89,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 print("YOOO");
               },
-              child: Text("Stat",  style: TextStyle(fontSize: 25),)),
-          SizedBox(height: 100),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(140, 60),
-                  backgroundColor: Colors.purple),
-              onPressed: () {
-                print("YOOO");
-              },
               child: Text("random",  style: TextStyle(fontSize: 25),)),
-          SizedBox(height: 100),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                  fixedSize: const Size(140, 60),
-                  backgroundColor: Colors.purple),
-              onPressed: () {
-                Navigator.push(context, PageRouteBuilder(
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return CreateStory(); //PrepareTeam(perso);
-                    }));
-              },
-              child: Text("créer random",  style: TextStyle(fontSize: 25),)),
         ],
       ),
     ));

@@ -3,6 +3,7 @@ import 'dart:ffi';
 
 import 'package:babayagamobile/class/HistoireJson.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
+import 'package:babayagamobile/homescreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
@@ -47,7 +48,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage("asset/images/fond/landscape.png"),
+              image: AssetImage("asset/images/fond/landscape.png"),//hist.fond
               fit: BoxFit.cover,
             ),
           ),
@@ -62,7 +63,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
               ),
 
               const Image(
-                image: AssetImage('asset/images/personnages/poulpours.png'),
+                image: AssetImage('asset/images/personnages/poulpours.png'),//hist.img
                 width: 300,
                 height: 400,
               ),
@@ -94,10 +95,16 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     if (hist.combat > 0) {
                       Navigator.push(context, PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) {
-                            return PrepareTeam(widget.perso, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos); //PrepareTeam(perso);
+                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos); //PrepareTeam(perso);
                           }));
                     }
                     else {
+                      if (hist.choix1.id == -1) {
+                        Navigator.push(context, PageRouteBuilder(
+                            pageBuilder: (context, animation, secondaryAnimation) {
+                              return HomeScreen();
+                            }));
+                      }
                       hist = getChoix(hist.choix1.numerochoix)!;
                        chaos += hist.chaos;
                        print(chaos);
@@ -143,15 +150,16 @@ class _ChoiceScreen extends State<ChoiceScreen> {
   }
 
   Histoire getChoix(int numerochoix) {
+    Histoire res = lhist.first;
     for (var el in lhist) {
-      if (el.combat > 0) {
-        /**/
-      }
       if (el.id == numerochoix) {
         setState(() {
           c1 = Text(el.choix1.txt);
           if (el.combat > 0) {
             c1 = Text("commencer le combat");
+          }
+          if (el.choix1.id == -1) {
+            c1 = Text("looser");
           }
           c2 = Text(el.choix2.txt);
           c3 = Text(el.choix3.txt);
@@ -169,9 +177,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
             visi3 = false;
           }
         });
-        return el;
+        res = el;
       }
     }
-    return lhist.first;
+    return res;
   }
 }

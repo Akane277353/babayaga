@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:babayagamobile/class/PersonnageJson.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -37,12 +39,23 @@ class _Fight extends State<Fight> {
 
   late var current = team[0];
 
-  //late var enpv = int.parse(ennemy.pv);
   late var enpv = ennemy.pv;
   late var selectAtt = -1;
+  List<int> teampv = [];
+  int done = 0;
+
+  void init() {
+    if (done == 0){
+      for (int i = 0; i < team.length; i++) {
+        teampv.add(team[i].pv);
+      }
+      done = 1;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    init();
     return Scaffold(
         body: Column(
       children: [
@@ -55,7 +68,7 @@ class _Fight extends State<Fight> {
                   crossAxisSpacing: 20.0,
                   //widget.available
                   children:
-                      List.generate(1, (index) => buildCard(widget.ennemy)))),
+                      List.generate(1, (index) => buildCard(widget.ennemy, 0)))),
         ),
         Flexible(
           child: Container(
@@ -66,7 +79,7 @@ class _Fight extends State<Fight> {
                   crossAxisSpacing: 20.0,
                   //widget.available
                   children: List.generate(widget.team.length,
-                      (index) => buildCard(widget.team[index])))),
+                      (index) => buildCard(widget.team[index], index)))),
         ),
         Flexible(
             child: Container(
@@ -84,7 +97,7 @@ class _Fight extends State<Fight> {
                                 backgroundColor: Colors.deepOrange),
                             onPressed: () {
                               selectAtt = index;
-                              attack();
+                              attack(index);
                             },
                             child: Text(
                                 "${current.attack[index].nomAttack}\n           dégats : ${current.attack[index].degat}\n")))))),
@@ -92,7 +105,7 @@ class _Fight extends State<Fight> {
     ));
   }
 
-  Widget buildCard(Personnage item) => Container(
+  Widget buildCard(Personnage item, int nb) => Container(
         width: 200,
         child: GestureDetector(
           onTap: () {
@@ -103,14 +116,14 @@ class _Fight extends State<Fight> {
             });
           },
           child: Card(
-            color: alive(item) ? Colors.green : Colors.orange,
+            color: alive(item, nb) ? Colors.green : Colors.orange,
             elevation: 20,
             child: Column(
               children: [
                 Expanded(
                   child: Material(
                     child: Ink.image(
-                      image: AssetImage("asset/images/personnages/perso.png"),
+                      image: AssetImage(item.img),
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -120,7 +133,7 @@ class _Fight extends State<Fight> {
                 if (item == ennemy) ...[
                   Text(enpv.toString()),
                 ] else ...[
-                  Text(item.pv.toString()),
+                  Text(teampv[nb].toString()),
                 ]
               ],
             ),
@@ -128,16 +141,40 @@ class _Fight extends State<Fight> {
         ),
       );
 
-  bool alive(Personnage item) {
+  bool alive(Personnage item, int nb) {
     if (item != ennemy) {
-      return item.pv > 0;
+      return teampv[nb] > 0;
     }
     return enpv > 0;
   }
 
-  void attack() {
+  void teamDead() {
+    var loose = true;
+    print(teampv);
+    for (int i = 0; i < team.length; i++) {
+      print(team[i].nom);
+    }
+    for (int i = 0; i < teampv.length; i++) {
+      if (teampv[i] > 0){
+        loose = false;
+      }
+    }
+    if (loose) {
+      Navigator.push(context,
+          PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
+            return ChoiceScreen(perso, histoire, lose, chaos); //PrepareTeam(perso);
+          }));
+    }
+  }
+
+  void attack(int nb) {
     setState(() {
-      enpv -= current.attack[selectAtt].degat;
+      if (alive(current, nb)) {
+        var cible = Random().nextInt(team.length);
+        teampv[cible]-= ennemy.attack[Random().nextInt(2)].degat;
+        enpv -= current.attack[selectAtt].degat;
+      }
+      teamDead();
     });
     if (enpv <= 0) {
       end();
