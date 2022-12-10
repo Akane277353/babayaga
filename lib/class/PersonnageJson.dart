@@ -4,7 +4,7 @@ class Personnage {
   final String nom;
   final int id;
   final int pv;
-  final Attack attack;
+  final List<Attack> attack;
   final String img;
   final int playable;
 
@@ -18,13 +18,18 @@ class Personnage {
   });
 
   factory Personnage.fromJson(Map<String, dynamic> json) {
+    List<Attack> att = [];
+    for (int i = 0; i < json["attack"].length; i++) {
+      att.add(Attack.fromJson(json["attack"], i));
+    }
+    print(att[0].degat);
     return Personnage(
       id: json['id'],
       nom: json['nom'],
       pv: json['pv'],
       img: json['img'],
       playable: json['playable'],
-      attack: Attack.fromJson(json['attack']),
+      attack:  att,
     );
   }
 }

@@ -53,7 +53,6 @@ Future<List<Personnage>> addStory() async {
   final response = await http.get(Uri.parse(productURl));
   List jsonResponse = json.decode(response.body);
   var list = jsonResponse.map((job) => new Personnage.fromJson(job)).toList();
-  print(list[0].attack.nomAttack);
   return list;
 }
 
