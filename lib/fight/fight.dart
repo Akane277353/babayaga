@@ -40,14 +40,17 @@ class _Fight extends State<Fight> {
   late var current = team[0];
 
   late var enpv = ennemy.pv;
-  late var selectAtt = -1;
-  List<int> teampv = [];
+  late var selectAtt = 0;
+  List<dynamic> teampv = [];
   int done = 0;
 
   void init() {
     if (done == 0){
       for (int i = 0; i < team.length; i++) {
-        teampv.add(team[i].pv);
+        List<dynamic> temp = [];
+        temp.add(team[i].nom);
+        temp.add(team[i].pv);
+        teampv.add(temp);
       }
       done = 1;
     }
@@ -143,19 +146,20 @@ class _Fight extends State<Fight> {
 
   bool alive(Personnage item, int nb) {
     if (item != ennemy) {
-      return teampv[nb] > 0;
+      for (int i = 0; i < teampv.length; i++) {
+        if (teampv[i][0] == item.nom){
+          return teampv[i][1] > 0;
+        }
+      }
+
     }
     return enpv > 0;
   }
 
   void teamDead() {
     var loose = true;
-    print(teampv);
-    for (int i = 0; i < team.length; i++) {
-      print(team[i].nom);
-    }
     for (int i = 0; i < teampv.length; i++) {
-      if (teampv[i] > 0){
+      if (teampv[i][1] > 0){
         loose = false;
       }
     }
@@ -171,8 +175,8 @@ class _Fight extends State<Fight> {
     setState(() {
       if (alive(current, nb)) {
         var cible = Random().nextInt(team.length);
-        teampv[cible]-= ennemy.attack[Random().nextInt(2)].degat;
-        enpv -= current.attack[selectAtt].degat;
+        teampv[cible][1] -= ennemy.attack[Random().nextInt(2)].degat;
+        enpv -= current.attack[nb].degat;
       }
       teamDead();
     });
