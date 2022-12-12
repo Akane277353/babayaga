@@ -1,0 +1,862 @@
+[
+  {
+    "id": 1,
+    "description": "Le personnage veut devenir star intergalactique de k-pop, s'étant trompé de salle pour l'entretient d'embauche, il est devenu membre de la section de 'nettoyage' de la corporation Apple, (toute ressemblance avec des personnages existants serait purement fortuite) Vous avez donc été envoyer dans une région reculez du monde. Votre objectif est de trouver et de tuer 'Charlotte' le big boss de cette région. Vous venez donc d'arriver dans cette région au croisé un poulpours sauvage",
+    "choix1": {
+      "txt": "Le tuez",
+      "chaosRequis": 0,
+      "numeroChoix": 2,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "Lui parler",
+      "chaosRequis": 0,
+      "numeroChoix": 3,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "Vous fuiez",
+      "chaosRequis": 0,
+      "numeroChoix": 4,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 2,
+    "description": "Vous engagé à combat contre Poulpours",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 4,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 2,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 3,
+    "description": "Il vous donne un colier de pâtes et vous conseil de ne pas prendre le pont...",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 4,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 4,
+    "description": "Vous continuez votre chemin et arrivé devant un ravin sur lequel se trouve un pont en bois qui est en très mauvais état.",
+    "choix1": {
+      "txt": "Vous prenez le pont",
+      "chaosRequis": 0,
+      "numeroChoix": 5,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "Vous descendez dans le ravin",
+      "chaosRequis": 0,
+      "numeroChoix": 6,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "Vous faites le tour du ravin",
+      "chaosRequis": 0,
+      "numeroChoix": 9,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 5,
+    "description": "Le pont se casse et vous mourrez d'une terrible chute. Fin du jeu",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 6,
+    "description": "Vous croisez un poulpours de rang : MAMA",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": 7,
+      "choixRequis": [
+        2
+      ]
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 7,
+    "description": "Mon Dieu la bête fonce droit sur moi !",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 11,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 2,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 11,
+    "description": "Vous avancez",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 9,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 9,
+    "description": "Vous êtes maintenant de l'autre coté du ravin. Et apercevez un Tartempion sauvage entrain de gouter. Vous vous y incrusté",
+    "choix1": {
+      "txt": "Vous mangez son pépito",
+      "chaosRequis": -1,
+      "numeroChoix": 12,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "Vous mangez sa banane",
+      "chaosRequis": 0,
+      "numeroChoix": 13,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "Vous mangez sa fraise",
+      "chaosRequis": 0,
+      "numeroChoix": 14,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 12,
+    "description": "Son grand frère \"ZBEUEGLEUBLEU\" un mégapion sauvage débarque.",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 15,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 7,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 13,
+    "description": "Vous avez mangez sa banane",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 17,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 14,
+    "description": "Il vous aime bien et vous suit. Il vous emmène à l'arbre sacré. Vous tombé sur Pablo l'ecureuil volant, celui-ci veux enlever votre ami. ",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 18,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 15,
+    "description": "Combat contre le megapion",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 16,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 7,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 16,
+    "description": "Il vous pètent les genoux et vous mange. FIN",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 17,
+    "description": "Vous marchez...",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 9,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 18,
+    "description": "Vous engagez un combat contre Pablo l'ecureuil volant.",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 19,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 4,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 19,
+    "description": "",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 9,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 20,
+    "description": "Pablo s'excuse et veut vous apprendre une magie occulte, il vous propose trois choix.",
+    "choix1": {
+      "txt": "Ada",
+      "chaosRequis": -1,
+      "numeroChoix": 21,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "Ocaml",
+      "chaosRequis": 0,
+      "numeroChoix": 22,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "Smalltalk",
+      "chaosRequis": 0,
+      "numeroChoix": 23,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 21,
+    "description": "Vous avez appris l'ada ! Le tartempion sauvage est content ! Il vous emmène devant le chateau de charlotte. Devant se trouve sébastien patoche. Il vous saute dessus avec son énorme trompette",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 24,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 22,
+    "description": "Vous avez appris l'ada ! Le tartempion sauvage est content ! Il vous emmène devant le chateau de charlotte. Devant se trouve Maria carrey. elle vous saute dessus avec son énorme sapin de noel.",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 25,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 23,
+    "description": "Vous avez appris le smalltalk ! Le tartempion sauvage est content ! Il vous emmène devant le chateau de charlotte. Devant se trouve BTS. Ils vous saute dessus avec leur énorme ????? (Pas d'idée).",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 26,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 24,
+    "description": "Combat contre sébastien patoche",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 27,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 5,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 25,
+    "description": "Combat contre Maria Carrey",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 28,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 6,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 26,
+    "description": "Combat contre BTS",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 29,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 8,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 27,
+    "description": "Vous avez gagné. Au moins il ne pètera plus dans son slip.",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 30,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 28,
+    "description": "Vous avez gagné. Allez à l'année prochaine !!!",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 30,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 29,
+    "description": "Vous avez gagnez ils ne reviendront pas de si tôt !",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 30,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 30,
+    "description": "Vous etes maintenant devant charlotte, l'objectif final de votre mission.",
+    "choix1": {
+      "txt": "Choix caché",
+      "chaosRequis": 30,
+      "numeroChoix": 32,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "Choix principal",
+      "chaosRequis": 0,
+      "numeroChoix": 31,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 31,
+    "description": "Combat contre charlotte",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": 33,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 2,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 32,
+    "description": "Charlotte vous trouve trop TROP BEAU ! Elle vous propose de prendre sa place au sommet du royaume des elfes de la nuit maléfique pur sang V12. Vous êtes un gentleman et accepté donc sa proposition",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": 35,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 33,
+    "description": "Bravo vous avez vaincu charlotte VICTOIR !",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 2,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 34,
+    "description": "Mort Perdu",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 2,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  },
+  {
+    "id": 35,
+    "description": "FIN VICTOIR vous vécure heureux (environ 6 mois à cause du diabète) et eurent beaucoup d'enfant (12).",
+    "choix1": {
+      "txt": "",
+      "chaosRequis": -1,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix2": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "choix3": {
+      "txt": "",
+      "chaosRequis": 0,
+      "numeroChoix": -1,
+      "choixRequis": []
+    },
+    "combat": 0,
+    "img": "./",
+    "fond": "./",
+    "chaos": 0
+  }
+]
