@@ -4,6 +4,7 @@ import 'dart:ffi';
 import 'package:babayagamobile/class/HistoireJson.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
 import 'package:babayagamobile/homescreen.dart';
+import 'package:babayagamobile/serv/connection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_button/flutter_animated_button.dart';
@@ -46,8 +47,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
         body: Container(
           decoration: BoxDecoration(
@@ -57,7 +56,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
             ),
           ),
           constraints: BoxConstraints.expand(),
-
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -65,7 +63,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 mainAxisSize: MainAxisSize.max,
               ),
-
               Image(
                 image: AssetImage(hist.img),
                 width: 300,
@@ -81,14 +78,12 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                       // if you need this
 
                     ),
-
                     elevation: 10,
                     child: Center(
                       child: desc,
                     ),
                   )
               ),
-
           Visibility(
             visible: visi1,
             child:
@@ -104,6 +99,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     }
                     else {
                       if (hist.choix1.id == -1) {
+                        sendData(lchoix);
                         Navigator.push(context, PageRouteBuilder(
                             pageBuilder: (context, animation, secondaryAnimation) {
                               return HomeScreen();

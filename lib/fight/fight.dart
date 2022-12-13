@@ -138,7 +138,7 @@ class _Fight extends State<Fight> {
                 if (item == ennemy) ...[
                   Text(enpv.toString()),
                 ] else ...[
-                  Text(teampv[nb].toString()),
+                  Text(teampv[nb][1].toString()),
                 ]
               ],
             ),

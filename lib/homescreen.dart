@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:babayagamobile/CreateStory.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
 import 'package:babayagamobile/baseGame/choicescreen.dart';
+import 'package:babayagamobile/serv/connection.dart';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,19 +11,32 @@ import 'package:flutter/material.dart';
 import 'class/HistoireJson.dart';
 import 'class/PersonnageJson.dart';
 import 'parameter.dart';
-import 'package:http/http.dart' as http;
+
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({Key? key}) : super(key: key);
 
   late List<Personnage> perso;
   late List<Histoire> histoire;
+  late List<Personnage> rperso;
+  late List<Histoire> rhistoire;
   bool bperso = false;
   bool bhistoire = false;
+  bool bRperso = false;
+  bool bRhistoire = false;
 
   Future init() async {
     perso = await getPersonnageList();
     histoire = await getHistoireList();
+    bhistoire = true;
+    bperso = true;
+  }
+
+  Future rinit() async {
+    rperso = await getRPersonnageList();
+    rhistoire = await getRHistoireList();
+    bRperso = true;
+    bRhistoire = true;
   }
 
   @override
@@ -49,7 +63,6 @@ class HomeScreen extends StatelessWidget {
                 icon: Icon(Icons.account_circle),
                 iconSize: 100,
                 onPressed: () {
-                  print("test");
                   Navigator.push(context, PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) {
                     return Parameter();
@@ -87,29 +100,17 @@ class HomeScreen extends StatelessWidget {
                   fixedSize: const Size(140, 60),
                   backgroundColor: Colors.purple),
               onPressed: () {
-                print("YOOO");
+                rinit();
+                if (bRperso && bRhistoire) {
+                  Navigator.push(context, PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) {
+                        return ChoiceScreen(rperso, rhistoire, 1, 0, []); //1
+                      }));
+                }
               },
               child: Text("random",  style: TextStyle(fontSize: 25),)),
         ],
       ),
     ));
-  }
-
-  Future<List<Personnage>> getPersonnageList() async {
-    String productURl= "http://141.145.200.31:4081/perso/ls";
-    final response = await http.get(Uri.parse(productURl));
-    List jsonResponse = json.decode(response.body);
-    var list = jsonResponse.map((job) => new Personnage.fromJson(job)).toList();
-    bperso = true;
-    return list;
-  }
-
-  Future<List<Histoire>> getHistoireList() async {
-    String productURl= "http://141.145.200.31:4081/histoire/ls";
-    final response = await http.get(Uri.parse(productURl));
-    List jsonResponse = json.decode(response.body);
-    var list = jsonResponse.map((job) => new Histoire.fromJson(job)).toList();
-    bhistoire = true;
-    return list;
   }
 }
