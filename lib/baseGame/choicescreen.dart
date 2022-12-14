@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:ffi';
 
+import 'package:babayagamobile/parameter.dart';
+import 'package:http/http.dart' as http;
 import 'package:babayagamobile/class/HistoireJson.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
 import 'package:babayagamobile/homescreen.dart';
@@ -42,8 +44,8 @@ class _ChoiceScreen extends State<ChoiceScreen> {
   late bool visi2 = true;
   late bool visi3 = true;
   late List<int> lchoix = widget.choix;
-
-  get http => null;
+  String tok = "";
+  bool tokok = false;
 
   @override
   Widget build(BuildContext context) {
@@ -94,20 +96,15 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     if (hist.combat > 0) {
                       Navigator.push(context, PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) {
-                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos, lchoix); //PrepareTeam(perso);
+                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos+10, lchoix); //PrepareTeam(perso);
                           }));
                     }
                     else {
                       if (hist.choix1.id == -1) {
-                        sendData(lchoix);
-                        Navigator.push(context, PageRouteBuilder(
-                            pageBuilder: (context, animation, secondaryAnimation) {
-                              return HomeScreen();
-                            }));
+                        send(lchoix);
                       }
                       hist = getChoix(hist.choix1.numerochoix)!;
                        chaos += hist.chaos;
-                       print(chaos);
                     }
                   },
                   child: c1)),
@@ -125,7 +122,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                       onPressed: () {
                         hist = getChoix(hist.choix2.numerochoix)!;
                         chaos += hist.chaos;
-                        print(chaos);
                       },
                       child: c2))),
                   Visibility(
@@ -137,7 +133,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                       onPressed: () {
                         hist = getChoix(hist.choix3.numerochoix)!;
                         chaos += hist.chaos;
-                        print(chaos);
                       },
                       child: c3))),
                 ],
@@ -151,8 +146,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
 
   Histoire getChoix(int numerochoix) {
     Histoire res = lhist.first;
-
-    print(lchoix);
     for (var el in lhist) {
       if (el.id == numerochoix) {
         setState(() {
@@ -186,8 +179,11 @@ class _ChoiceScreen extends State<ChoiceScreen> {
     return res;
   }
 
-  Future<void> getPersonnageList() async {
-    String productURl= "http://141.145.200.31:4081/perso/ls";
-    final response = await http.get(Uri.parse(productURl));
+  Future send(List<int> choix) async {
+   tok = await sendData(choix);
+   Navigator.push(context, PageRouteBuilder(
+       pageBuilder: (context, animation, secondaryAnimation) {
+         return Token(tok);
+       }));
   }
 }

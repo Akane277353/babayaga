@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:babayagamobile/CreateStory.dart';
 import 'package:babayagamobile/fight/prepareTeam.dart';
 import 'package:babayagamobile/baseGame/choicescreen.dart';
 import 'package:babayagamobile/serv/connection.dart';
@@ -54,23 +53,6 @@ class HomeScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Spacer(),
-              IconButton(
-                icon: Icon(Icons.account_circle),
-                iconSize: 100,
-                onPressed: () {
-                  Navigator.push(context, PageRouteBuilder(
-                      pageBuilder: (context, animation, secondaryAnimation) {
-                    return Parameter();
-                  }));
-                },
-              ),
-            ],
-          ),
           const Text(
             "Babayaga",
             style: TextStyle(

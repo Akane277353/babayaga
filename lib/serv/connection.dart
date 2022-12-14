@@ -38,7 +38,7 @@ Future<List<Histoire>> getRHistoireList() async {
   return list;
 }
 
-Future<void> sendData(List<int> array) async {
+Future<String> sendData(List<int> array) async {
   String res = "";
   for (int i = 0; i < array.length; i++) {
     if (i != 0) {
@@ -57,4 +57,5 @@ Future<void> sendData(List<int> array) async {
     },
     body: "choix=" + res,
   );
+  return response.body;
 }
