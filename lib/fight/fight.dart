@@ -181,10 +181,7 @@ class _Fight extends State<Fight> {
       }
     }
     if (loose) {
-      Navigator.push(context,
-          PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-            return ChoiceScreen(perso, histoire, lose, chaos, widget.choix); //PrepareTeam(perso);
-          }));
+      end(widget.lose);
     }
   }
 
@@ -202,17 +199,17 @@ class _Fight extends State<Fight> {
       teamDead();
     });
     if (enpv <= 0) {
-      end();
+      end(widget.next);
     }
   }
 
   /*
   end of the fight
  */
-  void end() {
+  void end(int nb) {
     Navigator.push(context,
         PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {
-      return ChoiceScreen(perso, histoire, next, chaos, choix); //PrepareTeam(perso);
+      return ChoiceScreen(perso, histoire, nb, chaos, choix); //PrepareTeam(perso);
     }));
   }
 }

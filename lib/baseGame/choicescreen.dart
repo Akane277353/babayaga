@@ -99,7 +99,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     if (hist.combat > 0) {
                       Navigator.push(context, PageRouteBuilder(
                           pageBuilder: (context, animation, secondaryAnimation) {
-                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix1.numerochoix, chaos+10, lchoix); //PrepareTeam(perso);
+                            return PrepareTeam(widget.perso, hist.combat, lhist, hist.choix1.numerochoix, hist.choix2.numerochoix, chaos+10, lchoix); //PrepareTeam(perso);
                           }));
                     }
                     else {
@@ -170,7 +170,7 @@ class _ChoiceScreen extends State<ChoiceScreen> {
           if ((c1.data == "" && el.combat != 2) || el.choix1.chaosrequis > chaos) {
             visi1 = false;
           }
-          if (c2.data == "" || el.combat == 2 || el.choix2.chaosrequis > chaos) {
+          if (c2.data == "" || el.combat > 0 || el.choix2.chaosrequis > chaos) {
             visi2 = false;
           }
           if (c3.data == "" || el.combat == 2 || el.choix3.chaosrequis > chaos) {

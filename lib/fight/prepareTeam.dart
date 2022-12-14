@@ -48,12 +48,12 @@ class _PrepareTeam extends State<PrepareTeam> {
       ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         body: GridView.count(
-            crossAxisCount: 4,
+            crossAxisCount: 3,
             mainAxisSpacing: 20.0,
             crossAxisSpacing: 20.0,
             //widget.available
             children: List.generate(
-                widget.perso.length, (index) => buildCard(playable[index])
+                playable.length, (index) => buildCard(playable[index])
             )
         )
     );
@@ -115,6 +115,7 @@ class _PrepareTeam extends State<PrepareTeam> {
  */
   List<Personnage> canplay(List<Personnage> perso) {
     List<Personnage> l = [];
+
     for (int i = 0; i < perso.length; i++) {
       if (perso[i].playable == 1) {
         l.add(perso[i]);
