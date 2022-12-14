@@ -47,6 +47,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
   String tok = "";
   bool tokok = false;
 
+  /*
+  view
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,7 +111,6 @@ class _ChoiceScreen extends State<ChoiceScreen> {
                     }
                   },
                   child: c1)),
-
               Container(
                 width: 300,
               child: Row(
@@ -144,6 +146,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
     );
   }
 
+  /*
+  view organisation
+ */
   Histoire getChoix(int numerochoix) {
     Histoire res = lhist.first;
     for (var el in lhist) {
@@ -179,6 +184,9 @@ class _ChoiceScreen extends State<ChoiceScreen> {
     return res;
   }
 
+  /*
+  send player data to website
+ */
   Future send(List<int> choix) async {
    tok = await sendData(choix);
    Navigator.push(context, PageRouteBuilder(

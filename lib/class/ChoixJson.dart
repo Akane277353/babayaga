@@ -1,4 +1,7 @@
 
+/*
+transforme un json en objet choix
+ */
 
 class Choix {
   final int id;

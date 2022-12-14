@@ -25,6 +25,9 @@ class Token extends StatefulWidget {
 class _Token extends State<Token> {
   _Token(tok);
 
+  /*
+  view
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(

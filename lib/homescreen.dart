@@ -24,6 +24,9 @@ class HomeScreen extends StatelessWidget {
   bool bRperso = false;
   bool bRhistoire = false;
 
+  /*
+  init history game mode
+ */
   Future init() async {
     perso = await getPersonnageList();
     histoire = await getHistoireList();
@@ -31,6 +34,9 @@ class HomeScreen extends StatelessWidget {
     bperso = true;
   }
 
+  /*
+  init random game mode
+ */
   Future rinit() async {
     rperso = await getRPersonnageList();
     rhistoire = await getRHistoireList();
@@ -38,6 +44,9 @@ class HomeScreen extends StatelessWidget {
     bRhistoire = true;
   }
 
+  /*
+  view
+ */
   @override
   Widget build(BuildContext context) {
     init();

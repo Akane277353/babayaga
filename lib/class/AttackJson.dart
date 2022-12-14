@@ -1,3 +1,8 @@
+
+/*
+transforme un json en objet attaque
+ */
+
 class Attack {
   final String nomAttack;
   final int degat;

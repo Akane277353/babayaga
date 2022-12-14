@@ -5,7 +5,9 @@ import '../class/HistoireJson.dart';
 import '../class/PersonnageJson.dart';
 import 'package:http/http.dart' as http;
 
-
+/*
+  get personnage list from url
+ */
 Future<List<Personnage>> getPersonnageList() async {
   String productURl= "http://141.145.200.31:4081/admin/perso/ls";
   final response = await http.get(Uri.parse(productURl));
@@ -14,6 +16,9 @@ Future<List<Personnage>> getPersonnageList() async {
   return list;
 }
 
+/*
+  get history list from url
+ */
 Future<List<Histoire>> getHistoireList() async {
   String productURl= "http://141.145.200.31:4081/admin/histoire/ls";
   final response = await http.get(Uri.parse(productURl));
@@ -22,6 +27,9 @@ Future<List<Histoire>> getHistoireList() async {
   return list;
 }
 
+/*
+  get random character list from url
+ */
 Future<List<Personnage>> getRPersonnageList() async {
   String productURl= "http://141.145.200.31:4081/perso/ls";
   final response = await http.get(Uri.parse(productURl));
@@ -30,6 +38,9 @@ Future<List<Personnage>> getRPersonnageList() async {
   return list;
 }
 
+/*
+  get random history list from url
+ */
 Future<List<Histoire>> getRHistoireList() async {
   String productURl= "http://141.145.200.31:4081/histoire/ls";
   final response = await http.get(Uri.parse(productURl));
@@ -38,6 +49,9 @@ Future<List<Histoire>> getRHistoireList() async {
   return list;
 }
 
+/*
+  send player choice history to the site
+ */
 Future<String> sendData(List<int> array) async {
   String res = "";
   for (int i = 0; i < array.length; i++) {

@@ -1,5 +1,9 @@
 import 'ChoixJson.dart';
 
+/*
+transforme un json en objet histoire
+ */
+
 class Histoire {
   final String description, img, fond;
   final int id, chaos, combat;

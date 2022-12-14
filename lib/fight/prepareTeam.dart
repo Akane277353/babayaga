@@ -29,6 +29,9 @@ class _PrepareTeam extends State<PrepareTeam> {
 
   late List<Personnage> playable = canplay(widget.perso);
 
+  /*
+  view of the window
+ */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,6 +59,9 @@ class _PrepareTeam extends State<PrepareTeam> {
     );
   }
 
+  /*
+  build character card
+ */
   Widget buildCard(Personnage item) => Container(
         width: 200,
         child: GestureDetector(
@@ -84,6 +90,9 @@ class _PrepareTeam extends State<PrepareTeam> {
         ),
       );
 
+  /*
+  change character team
+ */
   void changeTeam(Personnage el) {
     setState(() {
       if (liste2.contains(el)) {
@@ -94,10 +103,16 @@ class _PrepareTeam extends State<PrepareTeam> {
     });
   }
 
+  /*
+  check if character in team
+ */
   bool inTeam(Personnage el) {
     return liste2.contains(el);
   }
 
+  /*
+  check if character is playable
+ */
   List<Personnage> canplay(List<Personnage> perso) {
     List<Personnage> l = [];
     for (int i = 0; i < perso.length; i++) {
@@ -108,12 +123,14 @@ class _PrepareTeam extends State<PrepareTeam> {
     return l;
   }
 
+  /*
+  find the ennemy
+ */
   Personnage findEnnemy() {
     Personnage el = widget.perso.first;
     for (int i = 0; i < widget.perso.length; i++) {
       if (widget.perso[i].id == widget.id) {
         el = widget.perso[i];
-
       }
     }
     return el;

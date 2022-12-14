@@ -46,6 +46,9 @@ class _Fight extends State<Fight> {
   List<dynamic> teampv = [];
   int done = 0;
 
+  /*
+  initialize some array
+ */
   void init() {
     if (done == 0){
       for (int i = 0; i < team.length; i++) {
@@ -58,6 +61,9 @@ class _Fight extends State<Fight> {
     }
   }
 
+  /*
+  create the view of the window
+ */
   @override
   Widget build(BuildContext context) {
     init();
@@ -110,6 +116,9 @@ class _Fight extends State<Fight> {
     ));
   }
 
+  /*
+  build character card
+ */
   Widget buildCard(Personnage item, int nb) => Container(
         width: 200,
         child: GestureDetector(
@@ -146,6 +155,10 @@ class _Fight extends State<Fight> {
         ),
       );
 
+  /*
+  retourne true si personnage enn vie
+    false si mort
+ */
   bool alive(Personnage item, int nb) {
     if (item != ennemy) {
       for (int i = 0; i < teampv.length; i++) {
@@ -153,11 +166,13 @@ class _Fight extends State<Fight> {
           return teampv[i][1] > 0;
         }
       }
-
     }
     return enpv > 0;
   }
 
+  /*
+  check if team is dead
+ */
   void teamDead() {
     var loose = true;
     for (int i = 0; i < teampv.length; i++) {
@@ -173,6 +188,10 @@ class _Fight extends State<Fight> {
     }
   }
 
+  /*
+  a character attack
+  the boss attack after him
+ */
   void attack(int nb) {
     setState(() {
       if (alive(current, nb)) {
@@ -187,6 +206,9 @@ class _Fight extends State<Fight> {
     }
   }
 
+  /*
+  end of the fight
+ */
   void end() {
     Navigator.push(context,
         PageRouteBuilder(pageBuilder: (context, animation, secondaryAnimation) {

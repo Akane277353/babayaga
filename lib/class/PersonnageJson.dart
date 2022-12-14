@@ -1,5 +1,9 @@
 import 'AttackJson.dart';
 
+/*
+transforme un json en objet personnage
+ */
+
 class Personnage {
   final String nom;
   final int id;
