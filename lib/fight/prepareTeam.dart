@@ -35,6 +35,7 @@ class _PrepareTeam extends State<PrepareTeam> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(context, PageRouteBuilder(
@@ -47,15 +48,23 @@ class _PrepareTeam extends State<PrepareTeam> {
         backgroundColor: Colors.pink,
       ),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        body: GridView.count(
-            crossAxisCount: 3,
-            mainAxisSpacing: 20.0,
-            crossAxisSpacing: 20.0,
-            //widget.available
-            children: List.generate(
-                playable.length, (index) => buildCard(playable[index])
+        body: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage("asset/images/fond/background.jpg"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: GridView.count(
+                  crossAxisCount: 3,
+                  mainAxisSpacing: 20.0,
+                  crossAxisSpacing: 20.0,
+                  //widget.available
+                  children: List.generate(
+                      playable.length, (index) => buildCard(playable[index])
+                  )
+              ) ,
             )
-        )
     );
   }
 

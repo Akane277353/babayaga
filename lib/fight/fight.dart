@@ -68,52 +68,61 @@ class _Fight extends State<Fight> {
   Widget build(BuildContext context) {
     init();
     return Scaffold(
-        body: Column(
-      children: [
-        Flexible(
-          child: Container(
-              child: GridView.count(
-                  crossAxisCount: 4,
-                  physics: NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 20.0,
-                  crossAxisSpacing: 20.0,
-                  //widget.available
-                  children:
-                      List.generate(1, (index) => buildCard(widget.ennemy, 0)))),
-        ),
-        Flexible(
-          child: Container(
-              child: GridView.count(
-                  crossAxisCount: 4,
-                  physics: NeverScrollableScrollPhysics(),
-                  mainAxisSpacing: 20.0,
-                  crossAxisSpacing: 20.0,
-                  //widget.available
-                  children: List.generate(widget.team.length,
-                      (index) => buildCard(widget.team[index], index)))),
-        ),
-        Flexible(
-            child: Container(
-                child: GridView.count(
-                    crossAxisCount: 3,
-                    physics: NeverScrollableScrollPhysics(),
-                    mainAxisSpacing: 20.0,
-                    crossAxisSpacing: 20.0,
-                    //widget.available
-                    children: List.generate(
-                        current.attack.length,
-                        (index) => ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                fixedSize: const Size(200, 60),
-                                backgroundColor: Colors.deepOrange),
-                            onPressed: () {
-                              selectAtt = index;
-                              attack(index);
-                            },
-                            child: Text(
-                                "${current.attack[index].nomAttack}\n           dégats : ${current.attack[index].degat}\n")))))),
-      ],
-    ));
+        body: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("asset/images/fond/arena.jpg"),
+              fit: BoxFit.cover,
+            ),
+          ),
+          child: Column(
+            children: [
+              Flexible(
+                child: Container(
+                    child: GridView.count(
+                        crossAxisCount: 4,
+                        physics: NeverScrollableScrollPhysics(),
+                        mainAxisSpacing: 20.0,
+                        crossAxisSpacing: 20.0,
+                        //widget.available
+                        children:
+                        List.generate(1, (index) => buildCard(widget.ennemy, 0)))),
+              ),
+              Flexible(
+                child: Container(
+                    child: GridView.count(
+                        crossAxisCount: 4,
+                        physics: NeverScrollableScrollPhysics(),
+                        mainAxisSpacing: 20.0,
+                        crossAxisSpacing: 20.0,
+                        //widget.available
+                        children: List.generate(widget.team.length,
+                                (index) => buildCard(widget.team[index], index)))),
+              ),
+              Flexible(
+                  child: Container(
+                      child: GridView.count(
+                          crossAxisCount: 3,
+                          physics: NeverScrollableScrollPhysics(),
+                          mainAxisSpacing: 20.0,
+                          crossAxisSpacing: 20.0,
+                          //widget.available
+                          children: List.generate(
+                              current.attack.length,
+                                  (index) => ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      fixedSize: const Size(200, 60),
+                                      backgroundColor: Colors.deepOrange),
+                                  onPressed: () {
+                                    selectAtt = index;
+                                    attack(index);
+                                  },
+                                  child: Text(
+                                      "${current.attack[index].nomAttack}\n           dégats : ${current.attack[index].degat}\n")))))),
+            ],
+          ),
+        )
+        );
   }
 
   /*
