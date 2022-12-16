@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+	<title>Histoire</title>
+</head>
+<body onload="main()">
+<div>
+    <div class="menu">
+        <a href="/"><button>Accueil</button></a>
+        <a href="/perso"><button>Personnage</button></a>
+        <a href="/stat"><button>Stat Histoire Princpal</button></a>
+    </div>
+    <div class="menu">
+        <button onclick="aff_ADD()">Ajouter</button>
+        <button onclick="aff_LS()">Liste</button>
+        <button onclick="aff_MOD()">Modifier</button>
+    </div>
+    <div id="add" style="display:none;" class="mod-Hist">
+        <h1> Ajouter Une Hisoire !</h1>
+        <form method="post" action="/histoire/add/">
+                <p class="d1">description=<input type="text" name="description"></p>
+                <p class="d1">chaos=<input type="number" name="chaos" min="0" value="0"></p>
+                <p class="d1">Le mob=<select name="combat" value="0" id="mob"><option value="0">Hors Combat</option></select></p>
+                <p class="d1">Image=<input type="text" name="img" value="./"></p>
+                <p class="d1">Fond=<input type="text" name="fond" value="./"></p>
+
+                <div class="flex">
+                    <div class="el">
+                        <p class="d1">Choix 1 :</p>
+                        <p class="d2">nom=<input type="text" name="ch1Name"></p>
+                        <p class="d2">suite=<select name="ch1Suite" value="0" id="ch1Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                    <div class="el">
+                        <p class="d1">Choix 2 :</p>
+                        <p class="d2">nom=<input type="text" name="ch2Name"></p>
+                        <p class="d2">suite=<select name="ch2Suite" value="0" id="ch2Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                    <div class="el">
+                        <p class="d1">Choix 3 :</p>
+                        <p class="d2">nom=<input type="text" name="ch3Name"></p>
+                        <p class="d2">suite=<select name="ch3Suite" value="0" id="ch3Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                </div>
+                <input type="submit" value="Ajouter !" class="btn" style="width: 80%;">
+
+        </form>
+    </div>
+
+    <div id="ls">
+        <h1 style="text-align: center;">Chargement ...</h1>
+    </div>
+    <div id="mod" style="display:none;" class="mod-Hist">
+        <h1> Modifier Un Personage</h1>
+        <form method="post" action="/histoire/mod/">
+                <input type="text" name="id" value="-1" style="display: none;" id="mod-id">
+                <p class="d1">description=<input type="text" name="description" id="mod-desc"></p>
+                <p class="d1">chaos=<input type="number" name="chaos" min="0" value="0" id="mod-chaos"></p>
+                <p class="d1">Le mob=<select name="combat" value="0" id="mod-mob"><option value="0">Hors Combat</option></select></p>
+                <p class="d1">Image=<input type="text" name="img" id="mod-img"></p>
+                <p class="d1">Fond=<input type="text" name="fond" id="mod-fond"></p>
+                <div class="flex">
+                    <div class="el">
+                        <p class="d1">Choix 1 :</p>
+                        <p class="d2">nom=<input type="text" name="ch1Name" id="mod-ch1Name"></p>
+                        <p class="d2">suite=<select name="ch1Suite" value="0" id="mod-ch1Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                    <div class="el">
+                        <p class="d1">Choix 2 :</p>
+                        <p class="d2">nom=<input type="text" name="ch2Name" id="mod-ch2Name"></p>
+                        <p class="d2">suite=<select name="ch2Suite" value="0" id="mod-ch2Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                    <div class="el">
+                        <p class="d1">Choix 3 :</p>
+                        <p class="d2">nom=<input type="text" name="ch3Name" id="mod-ch3Name"></p>
+                        <p class="d2">suite=<select name="ch3Suite" value="0" id="mod-ch3Suite"><option value="0">NULL</option></select></p>
+
+                    </div>
+                </div>
+                
+                <input type="submit" value="Modifier !" class="btn" style="width: 80%;">
+        </form>
+    </div>
+</div>
+
+
+</form>
+</body>
+</html>
+<script>
+    const IP = "";
+
+
+    function main() {
+
+        reload();
+    }
+    function aff_ADD() {
+        document.getElementById("add").style.display = "block";
+        document.getElementById("ls").style.display = "none";
+        document.getElementById("mod").style.display = "none";
+    }
+    function aff_LS() {
+        document.getElementById("add").style.display = "none";
+        document.getElementById("ls").style.display = "block";
+        document.getElementById("mod").style.display = "none";
+    }
+    function aff_MOD() {
+        document.getElementById("add").style.display = "none";
+        document.getElementById("ls").style.display = "none";
+        document.getElementById("mod").style.display = "block";
+    }
+    function modifer(id) {
+
+         fetch(IP+"/histoire/get/"+id).then(data=>{return data.json()}).then(res=>{if (true) {
+            if (res.length == 1) {
+                let hist = res[0];
+
+                document.getElementById("mod-id").value = hist.id;
+                document.getElementById("mod-desc").value = hist.description;
+                document.getElementById("mod-chaos").value = hist.chaos;
+                document.getElementById("mod-mob").value = hist.combat;
+                document.getElementById("mod-img").value = hist.img;
+                document.getElementById("mod-fond").value = hist.fond;
+
+
+                if (hist.choix1.numeroChoix != -1) {
+                    document.getElementById("mod-ch1Name").value = hist.choix1.txt;
+                    document.getElementById("mod-ch1Suite").value = hist.choix1.numeroChoix;
+                }else{
+                    document.getElementById("mod-ch1Name").value = "";
+                    document.getElementById("mod-ch1Suite").value = 0;
+                }
+
+                if (hist.choix2.numeroChoix != -1) {
+                    document.getElementById("mod-ch2Name").value = hist.choix2.txt;
+                    document.getElementById("mod-ch2Suite").value = hist.choix2.numeroChoix;
+                }else{
+                    document.getElementById("mod-ch2Name").value = "";
+                    document.getElementById("mod-ch2Suite").value = 0;
+                }
+
+                if (hist.choix3.numeroChoix != -1) {
+                    document.getElementById("mod-ch3Name").value = hist.choix3.txt;
+                    document.getElementById("mod-ch3Suite").value = hist.choix3.numeroChoix;
+                }else{
+                    document.getElementById("mod-ch3Name").value = "";
+                    document.getElementById("mod-ch3Suite").value = 0;
+                }
+                
+                aff_MOD();
+            }else{
+                console.log("ID : Inconnu !")
+            }
+         }});
+
+        
+    }
+
+    function reload(){
+        let PERSO = [];
+        fetch(IP+"/perso/ls/").then(data=>{return data.json()}).then(res=>{if (true) {
+            let tab = res;
+            let htmlStr = "";
+            for (var i = tab.length - 1; i >= 0; i--) {
+                PERSO.push(tab[i]);
+                htmlStr = htmlStr + '<option value="'+tab[i].id+'">'+tab[i].nom+'</option>'
+            }
+            document.getElementById("mob").innerHTML = document.getElementById("mob").innerHTML + htmlStr;
+            document.getElementById("mod-mob").innerHTML = document.getElementById("mod-mob").innerHTML + htmlStr;
+
+        
+            fetch(IP+"/histoire/ls/").then(data=>{return data.json()}).then(res=>{if (true) {
+
+                let tab = res;
+                let htmlStr = "";
+                let formOption = "";
+                for (var i = tab.length - 1; i >= 0; i--) {
+                    formOption = formOption+'<option value="'+tab[i].id+'">( '+tab[i].chaos+' )'+tab[i].description+'</option>';
+                    htmlStr=htmlStr+"<div class='histoire'>";
+                    htmlStr=htmlStr+"<h2> \" "+tab[i].description+" \"</h2>";
+                    htmlStr=htmlStr+"<h3> Chaos : "+tab[i].chaos+"</h3>";
+                    htmlStr=htmlStr+"<h3> Image : "+tab[i].img+"</h3>";
+                    htmlStr=htmlStr+"<h3> Fond : "+tab[i].fond+"</h3>";
+                    if(tab[i].combat != 0){
+                        for (var j = PERSO.length - 1; j >= 0; j--) {
+                            if (PERSO[j].id == tab[i].combat) {
+                                htmlStr=htmlStr+"<h3> Combat : "+PERSO[j].nom+"</h3>";
+                            }
+                        }
+                    }
+                    htmlStr=htmlStr+"<div class='flex'>";
+                    let el = tab[i];
+                    if (el.choix1.numeroChoix != -1) {
+                        htmlStr=htmlStr+"<div class='el'>"+el.choix1.txt+" ( "+el.choix1.chaosRequis+" ) </div>";
+                    }
+                    if (el.choix2.numeroChoix != -1) {
+                        htmlStr=htmlStr+"<div class='el'> "+el.choix2.txt+" ( "+el.choix2.chaosRequis+" ) </div>";
+                    }
+                    if (el.choix3.numeroChoix != -1) {
+                        htmlStr=htmlStr+"<div class='el'>"+el.choix3.txt+" ( "+el.choix3.chaosRequis+" ) </div>";
+                    }
+                    
+                    htmlStr=htmlStr+"</div><div class='btns'>";
+                    htmlStr=htmlStr+"<div><form method='post' action='"+IP+"/histoire/del/'><input type='text' name='id' value='"+tab[i].id+"' style='display: none;'><input type='submit' value='Supprimer !' class='btn'></form></div>";
+                    htmlStr=htmlStr+"<div><button onclick='modifer(\""+tab[i].id+"\")' class='btn' >Modifer</button></div>"
+                    htmlStr=htmlStr+"</div></div>";
+                }
+                for (var i = 1; i < 4; i++) {
+                    document.getElementById("ch"+i+"Suite").innerHTML = document.getElementById("ch"+i+"Suite").innerHTML + formOption;
+                    document.getElementById("mod-ch"+i+"Suite").innerHTML = document.getElementById("mod-ch"+i+"Suite").innerHTML + formOption;
+
+                }
+                document.getElementById("ls").innerHTML = htmlStr;
+
+            }});
+        }});
+    }
+</script>
+<style type="text/css">
+    p.d1{
+        margin-left: 20px;
+    }
+    p.d2{
+        margin-left: 40px;
+    }
+</style>

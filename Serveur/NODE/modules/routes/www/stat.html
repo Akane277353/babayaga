@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+	<title>mobile</title>
+</head>
+<body>
+	<div class="menu">
+        <a href="/"><button>Accueil</button></a>
+		<a href="/histoire"><button>Histoire</button></a>
+    	<a href="/perso"><button>Personnage</button></a>
+		<!-- <a href="/Rstat"><button>Stat Histoire Secondaire</button></a> -->
+	</div>
+    <div class="menu">
+        <button onclick="showGeneral()">Parcourir l'Histoire</button>
+    	<button onclick="showToken()">Token</button>
+	</div>
+
+    <div id="general">
+        <p style="display: flex;">
+            <select id="histoire" style="width: 50%; border: 2px solid black;">
+                <option value="0">Choisir une histoire</option>
+            </select>
+            <button onclick="getHistoireAff()" class="btn" style="width: 50%;">Afficher</button>
+        </p>
+        <div id="histoireOutputPre" class="flex">
+            <!-- <h1 style="text-align: center;">Chargement ...</h1> -->
+        </div>
+        <div id="histoireOutput" class="flex">
+            <h1 style="text-align: center;">Chargement ...</h1>
+        </div>
+        <div id="histoireOutputPost" class="flex">
+            <!-- <h1 style="text-align: center;">Chargement ...</h1> -->
+        </div>
+
+    </div>
+    <div id="token">
+        <p style="display: flex;">
+            <input type="text" id="tokenInput" style="width: 50%; border: 2px solid black;" placeholder="Inserer le Token !">
+            <button onclick="getToken()" class="btn" style="width: 50%;">Afficher</button>
+        </p>
+        <div id="tokenOutput">
+            <h1 style="text-align: center;">Chargement ...</h1>
+        </div>
+
+    </div>
+    
+</body>
+</html>
+
+<script>
+    //YFsQh
+    var general = document.getElementById("general");
+    var token = document.getElementById("token");
+    showGeneral();
+
+    function showGeneral(){
+        general.style.display = "block";
+        token.style.display = "none";
+    }
+
+    function showToken(){
+        general.style.display = "none";
+        token.style.display = "block";
+    }
+    let PERSO = [];
+    fetch("/admin/perso/ls/").then(data=>{return data.json()}).then(res=>{if (true) {
+        for (let i = 0; i < res.length; i++) {
+            const element = res[i];
+            PERSO.push(element);
+        }
+    }});
+
+    let HIST = [];
+    fetch("/admin/histoire/ls/").then(data=>{return data.json()}).then(res=>{if (true) {
+        let html = '<option value="0">Choisir une histoire</option>'
+        for (let i = 0; i < res.length; i++) {
+            const element = res[i];
+            HIST.push(element);
+            html = html + '<option value="'+element.id+'">'+element.description+'</option>';
+        }
+        document.getElementById("histoire").innerHTML = html;
+    }});
+    function getHistoire(id){
+        let hist = HIST;
+        for (let i = 0; i < hist.length; i++) {
+            const element = hist[i];
+            if (element.id == id) {
+                return element;
+            }
+        }
+    }
+
+
+
+
+
+</script>
+
+
+<script>
+    function getHistoirePre(id){
+        let hist = HIST;
+        let pre = [];
+        for (let i = 0; i < hist.length; i++) {
+            const element = hist[i];
+            if (element.choix1.numeroChoix == id || element.choix2.numeroChoix == id || element.choix3.numeroChoix == id) {
+                pre.push(element);
+            }
+        }
+        return pre;
+    }
+
+    function getHistoirePost(el){
+        let hist = HIST;
+        let post = [];
+        if(el.choix1.numeroChoix != -1 || el.choix2.numeroChoix != -1 || el.choix3.numeroChoix != -1){
+            for (let i = 0; i < hist.length; i++) {
+                const element = hist[i];
+                if (el.choix1.numeroChoix == element.id || el.choix2.numeroChoix == element.id || el.choix3.numeroChoix == element.id) {
+                    post.push(element);
+                }
+            } 
+        }
+        
+        return post;
+    }
+    function getHistoireAff(indice=null){
+        let hist = HIST;
+        let id = document.getElementById("histoire").value;
+        if(indice!=null){
+            id = indice;
+        }
+        let histoireOutputPre = document.getElementById("histoireOutputPre");
+        let histoireOutput = document.getElementById("histoireOutput");
+        let histoireOutputPost = document.getElementById("histoireOutputPost");
+        histoireOutputPre.innerHTML = "<h1 style='text-align: center;'>Chargement ...</h1>";
+        histoireOutput.innerHTML = "<h1 style='text-align: center;'>Chargement ...</h1>";
+        histoireOutputPost.innerHTML = "<h1 style='text-align: center;'>Chargement ...</h1>";
+
+        if(id == 0){
+            alert("Veuillez choisir une histoire !");
+        }else{
+            let pre = getHistoirePre(id);
+            let el = getHistoire(id);
+            let post = getHistoirePost(el);
+            let preHTML = "";
+            if (pre.length == 0) {
+                preHTML = "<div class='histoire'><h1 style='text-align: center;'>Start !</h1></div>";
+                histoireOutputPre.innerHTML = preHTML;
+            }else{
+                function genPre(indice,pre,preHTML){
+                    if(indice >= pre.length){
+                        histoireOutputPre.innerHTML = preHTML;
+                    }else{
+                        const element = pre[indice];
+                        getStat(element,el,(pourcent)=>{
+                            preHTML = preHTML + objectToHtml(element,pre.length,-1,pourcent);
+                            genPre(indice+1,pre,preHTML,-1);
+                        });
+                    }
+                }
+                genPre(0,pre,preHTML)
+            }
+            
+            histoireOutputPre.innerHTML = preHTML;
+            
+            
+            let html = objectToHtml(el,1,-1,-1);
+            histoireOutput.innerHTML = html;
+
+            
+            let postHTML = "";
+            if (post.length == 0) {
+                postHTML = "<div class='histoire'><h1 style='text-align: center;'>End !</h1></div>";
+                histoireOutputPost.innerHTML = postHTML;
+            }else{
+                console.log(post);
+                function genPost(indice,post,postHTML){
+                    if(indice >= post.length){
+                        histoireOutputPost.innerHTML = postHTML;
+                    }else{
+                        const element = post[indice];
+                        getStat(el,element,(pourcent)=>{
+                            postHTML = postHTML + objectToHtml(element,post.length,pourcent,-1);
+                            genPost(indice+1,post,postHTML,-1);
+                        });
+                    }
+                }
+                genPost(0,post,postHTML)
+            }
+            
+
+        }
+    }
+
+    function objectToHtml(el,nb,nbup,nbdown){
+        let w = Math.floor(99/nb);
+        let html = "<div class='histoire' style='width:"+w+"%;'>";
+        if(nbup != -1){
+            html = html + "<h1> "+nbup+" %</h1>";
+        }
+        html=html+"<h2> \" "+el.description+" \"</h2>";
+        html=html+"<h3> Chaos : "+el.chaos+"</h3>";
+        html=html+"<h3 style='width:80%;'> Image : "+el.img+"</h3>";
+        html=html+"<h3 style='width:80%;'> Fond : "+el.fond+"</h3>";
+        if(el.combat != 0){
+            for (var j = PERSO.length - 1; j >= 0; j--) {
+                if (PERSO[j].id == el.combat) {
+                    html=html+"<h3> Combat : "+PERSO[j].nom+"</h3>";
+                }
+            }
+        }
+        if(nbdown != -1){
+            html = html + "<h1> "+nbdown+" %</h1>";
+        }
+        html += "<button class='btn' onclick='getHistoireAff("+el.id+")'>GO</button>";
+        html += "</div>";
+        return html;
+    }
+
+
+    function getStat(pre,cible,callback){
+        let total = 0;
+        let choixtotal = 0;
+
+        if(pre.choix1.id != -1){
+            fetch("/admin/state/get/"+pre.id+"/"+pre.choix1.numeroChoix).then(data=>{return data.json()}).then(ch1=>{if (true) {
+                total += ch1.length;
+                if(cible.id == pre.choix1.numeroChoix){
+                    choixtotal += ch1.length;
+                }
+                etape2();
+            }});
+        }else{
+            etape2();
+        }
+
+
+        function end(){
+            let res = Math.floor(choixtotal*100/total);
+            if(isNaN(res)){
+                res = 0;
+            }
+            callback(res);
+        }
+
+        function etape3(){
+            if(pre.choix3.id != -1){
+                fetch("/admin/state/get/"+pre.id+"/"+pre.choix3.numeroChoix).then(data=>{return data.json()}).then(ch3=>{if (true) {
+                    total += ch3.length;
+                    if(cible.id == pre.choix3.numeroChoix){
+                        choixtotal += ch3.length;
+                    }
+
+                    end();
+                }});
+            }else{
+                end();
+            }
+        }
+        function etape2(){
+            if(pre.choix2.id != -1){
+                fetch("/admin/state/get/"+pre.id+"/"+pre.choix2.numeroChoix).then(data=>{return data.json()}).then(ch2=>{if (true) {
+                    total += ch2.length;
+                    if(cible.id == pre.choix2.numeroChoix){
+                        choixtotal += ch2.length;
+                    }
+
+                    etape3()
+                }});
+            }else{
+                etape3()
+            }
+        }
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+    function getToken(){
+        let hist = HIST;
+        let token = document.getElementById("tokenInput").value;
+        let tokenOutput = document.getElementById("tokenOutput");
+        tokenOutput.innerHTML = "<h1 style='text-align: center;'>Chargement ...</h1>";
+        fetch("/admin/state/get/"+token).then(data=>{return data.json()}).then(res=>{if (true) {
+            
+            let html = "<div class='histoire'><h2> Start </h2></div>";
+            html=html+"<h1>|</h1>";
+
+            
+
+            function genHTML(res,indice,html){
+                if(res.length <= indice+1){
+                    html=html+"<div class='histoire'><h2> END </h2></div>";
+                    tokenOutput.innerHTML = html;
+                }else{
+                    let el = getHistoire(res[indice].chunk);
+                    if(el == undefined){
+                        alert("Erreur de Chargemnt réeessayez ! (verifer le token si le problème persiste)");
+                    }else{
+                        html=html+"<div class='histoire'>";
+                        html=html+"<h2> \" "+el.description+" \"</h2>";
+                        html=html+"<h3> Chaos : "+el.chaos+"</h3>";
+                        html=html+"<h3> Image : "+el.img+"</h3>";
+                        html=html+"<h3> Fond : "+el.fond+"</h3>";
+                        if(el.combat != 0){
+                            for (var j = PERSO.length - 1; j >= 0; j--) {
+                                if (PERSO[j].id == el.combat) {
+                                    html=html+"<h3> Combat : "+PERSO[j].nom+"</h3>";
+                                }
+                            }
+                        }
+                        html += "</div>";
+                        let total = 0;
+                        let choixtotal = 0;
+                        if(el.choix1.id != -1){
+                            fetch("/admin/state/get/"+el.id+"/"+el.choix1.numeroChoix).then(data=>{return data.json()}).then(ch1=>{if (true) {
+                                total += ch1.length;
+                                if(res[indice].choix == el.choix1.numeroChoix){
+                                    choixtotal += ch1.length;
+                                }
+                                etape2();
+                            }});
+                        }else{
+                            etape2();
+                        }
+
+
+                        function end(){
+
+                            html=html+"<h1>|</h1>";
+                            html=html+"<h1>"+Math.floor(choixtotal*100/total)+" %</h1>";
+                            html=html+"<h1>|</h1>";
+                            tokenOutput.innerHTML = html;
+                            genHTML(res,indice+1,html)
+                        }
+
+                        function etape3(){
+                            if(el.choix3.id != -1){
+                                fetch("/admin/state/get/"+el.id+"/"+el.choix3.numeroChoix).then(data=>{return data.json()}).then(ch3=>{if (true) {
+                                    total += ch3.length;
+                                    if(res[indice].choix == el.choix3.numeroChoix){
+                                        choixtotal += ch3.length;
+                                    }
+
+                                    end();
+                                }});
+                            }else{
+                                end();
+                            }
+                        }
+                        function etape2(){
+                            if(el.choix2.id != -1){
+                                fetch("/admin/state/get/"+el.id+"/"+el.choix2.numeroChoix).then(data=>{return data.json()}).then(ch2=>{if (true) {
+                                    total += ch2.length;
+                                    if(res[indice].choix == el.choix2.numeroChoix){
+                                        choixtotal += ch2.length;
+                                    }
+
+                                    etape3()
+                                }});
+                            }else{
+                                etape3()
+                            }
+                        }
+
+                        
+                    }
+                }
+            }
+            genHTML(res,0,html);
+        }});
+    }
+</script>

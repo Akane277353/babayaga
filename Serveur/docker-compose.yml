@@ -1,0 +1,42 @@
+version: '2'
+
+services:
+
+ NODE:
+  #image: jonathandumcode/mobile-m1
+  image: jonathandumcode/mobile-m1x64
+  restart: always
+  depends_on:
+    - db
+  volumes:
+   - ./NODE:/src
+  ports:
+   - 4081:8081
+
+ db:
+  image: mysql:8.0
+  command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_general_ci
+  environment:
+   MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+   MYSQL_DATABASE: ${MYSQL_DATABASE}
+   MYSQL_USER: ${MYSQL_USER}
+   MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+  volumes:
+    - ./SQL:/var/lib/mysql
+  ports:
+   - 3307:3306
+  expose:
+   - 3307/tcp
+   - 3307/udp
+
+ adminer:
+  image: adminer:latest
+  environment:
+   PMA_ARBITRARY: 1
+   PMA_HOST: db
+   PMA_PORT: 3307
+   #PMA_USER: myuser
+   #PMA_PASSWORD: monpassword
+   UPLOAD_LIMIT: 20M
+  ports:
+   - 4080:8080

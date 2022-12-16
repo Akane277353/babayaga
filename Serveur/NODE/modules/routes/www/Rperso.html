@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="style.css">
+	<title>Personnage</title>
+</head>
+<body onload="main()">
+<div>
+    <div class="menu">
+        <a href="/"><button>Accueil</button></a>
+        <a href="/histoire"><button>Histoire</button></a>
+        <a href="/stat"><button>Stat Histoire Princpal</button></a>
+    </div>
+    <div class="menu">
+        <button onclick="aff_ADD()">Ajouter</button>
+        <button onclick="aff_LS()">Liste</button>
+        <button onclick="aff_MOD()">Modifier</button>
+    </div>
+    <div id="add" style="display:none;" class="mod-Perso">
+        <h1> Ajouter Un Personnage</h1>
+        <form method="post" action="/perso/add/">
+            <p class="d1">nom=<input type="text" name="name"></p>
+            <p class="d1">pv=<input type="number" name="pv" min="1" value="1"></p>
+            <p class="d1">Est Jouable ? =<select name="play" value="0"><option value="0">NON</option><option value="1">OUI</option></select></p>
+
+            <p class="d1">Image=<input type="text" name="img"></p>
+            <div class="flex">
+                <div class="el">
+                    <p class="d1">Attaque 1 :</p>
+                    <p class="d2">nom=<input type="text" name="atk1Name" ></p>
+                    <p class="d2">degat=<input type="number" name="atk1Degat" min="0" value="0"></p>
+
+                </div>
+                <div class="el">
+                    <p class="d1">Attaque 2 :</p>
+                    <p class="d2">nom=<input type="text" name="atk2Name"></p>
+                    <p class="d2">degat=<input type="number" name="atk2Degat" min="0" value="0"></p>
+
+                </div>
+                <div class="el">
+                    <p class="d1">Attaque 3 :</p>
+                    <p class="d2">nom=<input type="text" name="atk3Name"></p>
+                    <p class="d2">degat=<input type="number" name="atk3Degat" min="0" value="0"></p>
+
+                </div>
+            </div>
+            <input type="submit" value="Ajouter !" class="btn" style="width: 80%;" >
+        </form>
+    </div>
+
+    <div id="ls">
+        <h1 style="text-align: center;">Chargement ...</h1>
+    </div>
+    <div id="mod" class="mod-Perso" style="display:none;">
+        <h1> Modifier Un Personnage</h1>
+        <form method="post" action="/perso/mod/">
+                <input type="text" name="id" value="-1" style="display: none;" id="mod-id">
+
+                <p class="d1">nom=<input type="text" name="name" id="mod-name"></p>
+                <p class="d1">pv=<input type="number" name="pv" min="1" value="1" id="mod-pv"></p>
+                <p class="d1">Est Jouable ? =<select name="play" value="0" id="mod-play"><option value="0">NON</option><option value="1">OUI</option></select></p>
+                <p class="d1">Image=<input type="text" name="img" id="mod-img"></p>
+                <div class="flex">
+                    <div class="el">
+                        <p class="d1">Attaque 1 :</p>
+                        <p class="d2">nom=<input type="text" name="atk1Name"  id="mod-nom-1"></p>
+                        <p class="d2">degat=<input type="number" name="atk1Degat" min="0" value="0" id="mod-degat-1"></p>
+    
+                    </div>
+                    <div class="el">
+                        <p class="d1">Attaque 2 :</p>
+                        <p class="d2">nom=<input type="text" name="atk2Name"  id="mod-nom-2"></p>
+                        <p class="d2">degat=<input type="number" name="atk2Degat" min="0" value="0" id="mod-degat-2"></p>
+    
+                    </div>
+                    <div class="el">
+                        <p class="d1">Attaque 3 :</p>
+                        <p class="d2">nom=<input type="text" name="atk3Name"  id="mod-nom-3"></p>
+                        <p class="d2">degat=<input type="number" name="atk3Degat" min="0" value="0" id="mod-degat-3"></p>
+    
+                    </div>
+                </div>
+                
+                <input type="submit" value="Modifier !" class="btn" style="width: 80%;" >
+        </form>
+    </div>
+</div>
+
+
+</form>
+</body>
+</html>
+<script>
+    const IP = "";
+
+
+    function main() {
+
+        reload();
+    }
+    function aff_ADD() {
+        document.getElementById("add").style.display = "block";
+        document.getElementById("ls").style.display = "none";
+        document.getElementById("mod").style.display = "none";
+    }
+    function aff_LS() {
+        document.getElementById("add").style.display = "none";
+        document.getElementById("ls").style.display = "block";
+        document.getElementById("mod").style.display = "none";
+    }
+    function aff_MOD() {
+        document.getElementById("add").style.display = "none";
+        document.getElementById("ls").style.display = "none";
+        document.getElementById("mod").style.display = "block";
+    }
+    function modifer(id) {
+
+         fetch(IP+"/perso/get/"+id).then(data=>{return data.json()}).then(res=>{if (true) {
+            if (res.length == 1) {
+                let profil = res[0];
+
+                document.getElementById("mod-id").value = profil.id;
+                document.getElementById("mod-name").value = profil.nom;
+                document.getElementById("mod-pv").value = profil.pv;
+                document.getElementById("mod-img").value = profil.img;
+                document.getElementById("mod-play").value = profil.playable;
+
+
+                for (var i = 0; i < profil.attack.length; i++) {
+                    document.getElementById("mod-nom-"+(i+1)).value = profil.attack[i].nom;
+                    document.getElementById("mod-degat-"+(i+1)).value = profil.attack[i].degat;
+                }
+                aff_MOD();
+            }else{
+                console.log("ID : Inconnu !")
+            }
+         }});
+
+        
+    }
+
+    function reload(){
+         fetch(IP+"/perso/ls/").then(data=>{return data.json()}).then(res=>{if (true) {
+
+            let tab = res;
+            let htmlStr = "";
+            for (var i = tab.length - 1; i >= 0; i--) {
+
+                htmlStr=htmlStr+"<div class='perso'>";
+                htmlStr=htmlStr+"<h2> Nom : "+tab[i].nom+"</h2>";
+                htmlStr=htmlStr+"<h3> pv : "+tab[i].pv+"</h3>";
+                if (tab[i].playable == 1) {
+                    htmlStr=htmlStr+"<h3> Jouable : OUI</h3>";
+                }else{
+                    htmlStr=htmlStr+"<h3> Jouable : NON</h3>";
+                }
+                htmlStr=htmlStr+"<h3> Image : "+tab[i].img+"</h3>";
+
+                htmlStr=htmlStr+"<div class='flex'>";
+                for (var j = 0; j < tab[i].attack.length; j++) {
+                    let atk = tab[i].attack[j];
+                    htmlStr=htmlStr+"<div class='el'>"+atk.nom+" => "+atk.degat+"</div>";
+                }
+                htmlStr=htmlStr+"</div>";
+
+                htmlStr=htmlStr+"<div class='btns'>";
+                htmlStr=htmlStr+"<div><form method='post' action='/perso/del/'><input type='text' name='id' value='"+tab[i].id+"' style='display: none;'><input type='submit' value='Supprimer !' class='btn'></form></div>";
+                htmlStr=htmlStr+"<div><button onclick='modifer(\""+tab[i].id+"\")' class='btn'>Modifer</button></div>"
+                htmlStr=htmlStr+"</div></div>";
+
+            }
+            document.getElementById("ls").innerHTML = htmlStr;
+
+        }});
+    }
+</script>
+
